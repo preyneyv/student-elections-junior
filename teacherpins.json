@@ -1,0 +1,302 @@
+[
+    {
+        "name": "Rashmi",
+        "house": "Hercules",
+        "pin": "2433",
+        "duplicate": "1"
+    },
+    {
+        "name": "Soumya",
+        "house": "Hercules",
+        "pin": "5391",
+        "duplicate": "1"
+    },
+    {
+        "name": "Nisha",
+        "house": "Hercules",
+        "pin": "9536",
+        "duplicate": "1"
+    },
+    {
+        "name": "Sweety",
+        "house": "Hercules",
+        "pin": "4093",
+        "duplicate": "1"
+    },
+    {
+        "name": "Desai",
+        "house": "Hercules",
+        "pin": "739",
+        "duplicate": "1"
+    },
+    {
+        "name": "Kamala",
+        "house": "Hercules",
+        "pin": "6887",
+        "duplicate": "1"
+    },
+    {
+        "name": "Nagalakshmi",
+        "house": "Hercules",
+        "pin": "5939",
+        "duplicate": "1"
+    },
+    {
+        "name": "Poonam",
+        "house": "Hercules",
+        "pin": "8005",
+        "duplicate": "1"
+    },
+    {
+        "name": "Anjali",
+        "house": "Hercules",
+        "pin": "3537",
+        "duplicate": "1"
+    },
+    {
+        "name": "Erina",
+        "house": "Hercules",
+        "pin": "4796",
+        "duplicate": "1"
+    },
+    {
+        "name": "Sangitha",
+        "house": "Hercules",
+        "pin": "4505",
+        "duplicate": "1"
+    },
+    {
+        "name": "Hazira",
+        "house": "Hercules",
+        "pin": "8408",
+        "duplicate": "1"
+    },
+    {
+        "name": "Kezia",
+        "house": "Hercules",
+        "pin": "1558",
+        "duplicate": "1"
+    },
+    {
+        "name": "Sunila",
+        "house": "Hercules",
+        "pin": "3995",
+        "duplicate": "1"
+    },
+    {
+        "name": "Soghra",
+        "house": "Hercules",
+        "pin": "6900",
+        "duplicate": "1"
+    },
+    {
+        "name": "Mamta",
+        "house": "Hercules",
+        "pin": "1753",
+        "duplicate": "1"
+    },
+    {
+        "name": "Daniella",
+        "house": "Hercules",
+        "pin": "3095",
+        "duplicate": "1"
+    },
+    {
+        "name": "Anthony",
+        "house": "Phoenix",
+        "pin": "9363",
+        "duplicate": "1"
+    },
+    {
+        "name": "Sreekanth",
+        "house": "Phoenix",
+        "pin": "6761",
+        "duplicate": "1"
+    },
+    {
+        "name": "Rajita",
+        "house": "Phoenix",
+        "pin": "262",
+        "duplicate": "1"
+    },
+    {
+        "name": "Revathi",
+        "house": "Phoenix",
+        "pin": "3165",
+        "duplicate": "1"
+    },
+    {
+        "name": "Minette",
+        "house": "Phoenix",
+        "pin": "3553",
+        "duplicate": "1"
+    },
+    {
+        "name": "Saritha",
+        "house": "Phoenix",
+        "pin": "5533",
+        "duplicate": "1"
+    },
+    {
+        "name": "Meril",
+        "house": "Phoenix",
+        "pin": "4837",
+        "duplicate": "1"
+    },
+    {
+        "name": "Sai Sudha",
+        "house": "Phoenix",
+        "pin": "1221",
+        "duplicate": "1"
+    },
+    {
+        "name": "Mary",
+        "house": "Phoenix",
+        "pin": "304",
+        "duplicate": "1"
+    },
+    {
+        "name": "Consuelo",
+        "house": "Phoenix",
+        "pin": "7078",
+        "duplicate": "1"
+    },
+    {
+        "name": "Sheeba",
+        "house": "Caesar",
+        "pin": "2982",
+        "duplicate": "1"
+    },
+    {
+        "name": "Alphine",
+        "house": "Caesar",
+        "pin": "1442",
+        "duplicate": "1"
+    },
+    {
+        "name": "Bindu",
+        "house": "Caesar",
+        "pin": "3946",
+        "duplicate": "1"
+    },
+    {
+        "name": "Sandhya",
+        "house": "Caesar",
+        "pin": "1925",
+        "duplicate": "1"
+    },
+    {
+        "name": "Prathaap",
+        "house": "Caesar",
+        "pin": "2854",
+        "duplicate": "1"
+    },
+    {
+        "name": "Carol",
+        "house": "Caesar",
+        "pin": "4729",
+        "duplicate": "1"
+    },
+    {
+        "name": "Grace",
+        "house": "Caesar",
+        "pin": "2428",
+        "duplicate": "1"
+    },
+    {
+        "name": "Meera",
+        "house": "Caesar",
+        "pin": "4239",
+        "duplicate": "1"
+    },
+    {
+        "name": "Sheela",
+        "house": "Caesar",
+        "pin": "9279",
+        "duplicate": "1"
+    },
+    {
+        "name": "Neema",
+        "house": "Caesar",
+        "pin": "3978",
+        "duplicate": "1"
+    },
+    {
+        "name": "Suchitra",
+        "house": "Caesar",
+        "pin": "8202",
+        "duplicate": "1"
+    },
+    {
+        "name": "Rackel",
+        "house": "Poseidon",
+        "pin": "47",
+        "duplicate": "1"
+    },
+    {
+        "name": "Kiran",
+        "house": "Poseidon",
+        "pin": "8289",
+        "duplicate": "1"
+    },
+    {
+        "name": "Sumit",
+        "house": "Poseidon",
+        "pin": "8585",
+        "duplicate": "1"
+    },
+    {
+        "name": "Sangeetha",
+        "house": "Poseidon",
+        "pin": "823",
+        "duplicate": "1"
+    },
+    {
+        "name": "Preeti",
+        "house": "Poseidon",
+        "pin": "7462",
+        "duplicate": "1"
+    },
+    {
+        "name": "Felicia",
+        "house": "Poseidon",
+        "pin": "9188",
+        "duplicate": "1"
+    },
+    {
+        "name": "Chitra",
+        "house": "Poseidon",
+        "pin": "1958",
+        "duplicate": "1"
+    },
+    {
+        "name": "Reema",
+        "house": "Poseidon",
+        "pin": "968",
+        "duplicate": "1"
+    },
+    {
+        "name": "Shirley",
+        "house": "Poseidon",
+        "pin": "5542",
+        "duplicate": "1"
+    },
+    {
+        "name": "Priyanka",
+        "house": "Poseidon",
+        "pin": "3121",
+        "duplicate": "1"
+    },
+    {
+        "name": "Rukmini",
+        "house": "Poseidon",
+        "pin": "5764",
+        "duplicate": "1"
+    },
+    {
+        "name": "Ashwini",
+        "house": "Poseidon",
+        "pin": "3639",
+        "duplicate": "1"
+    }
+]
