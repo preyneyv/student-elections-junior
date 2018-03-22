@@ -104,9 +104,10 @@ exports.results = (req, res) => {
 			const position = _position.toJSON()
 			candidates = _candidates.map(_candidate => {
 				const candidate = _candidate.toJSON()
-				const { votes } = _position.candidates.filter(c => String(c.candidateId) == String(candidate._id))[0]
+				const { votes, teacherVotes, managementVotes } = _position.candidates.filter(c => String(c.candidateId) == String(candidate._id))[0]
 				candidate.votes = votes
-				console.log(candidate)
+				candidate.teacherVotes = teacherVotes
+				candidate.managementVotes = managementVotes
 				return candidate
 			})
 			position.candidates = candidates

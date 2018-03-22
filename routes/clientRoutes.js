@@ -3,6 +3,7 @@ const path = require('path')
 
 const clientController = require("../controllers/clientController")
 const teachersController = require("../controllers/teachersController")
+const managementController = require("../controllers/managementController")
 
 module.exports = app => {
 	app.use(express.static(path.resolve(__dirname, "../client/static")))
@@ -16,4 +17,8 @@ module.exports = app => {
 	app.post('/teachers/api/check', teachersController.check)
 	app.get('/teachers/api/fetch', teachersController.fetch)
 	app.post('/teachers/api/submit', teachersController.submit)
+
+	app.post('/management/api/check', managementController.check)
+	app.get('/management/api/fetch', managementController.fetch)
+	app.post('/management/api/submit', managementController.submit)
 }
