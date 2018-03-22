@@ -1,8 +1,8 @@
 {
-  "name": "student-elections-senior",
+  "name": "student-elections-junior",
   "version": "1.0.0",
   "main": "index.js",
-  "description": "An app for senior students to vote for their council.",
+  "description": "An app for junior students to vote for their council.",
   "author": "Pranav Nutalapati",
   "scripts": {
     "start": "nodemon index.js"
