@@ -42,7 +42,7 @@ exports.delete = (req, res) => {
 	Candidate.findById(id)
 	.then(candidate => {
 		if (candidate) {
-			const imagePath = path.resolve(studentElectionsSenior.imagesDir, candidate.image)
+			const imagePath = path.resolve(studentElectionsJunior.imagesDir, candidate.image)
 			fs.unlinkSync(imagePath)
 			candidate.remove()
 			.then(() => res.send({success: true}))

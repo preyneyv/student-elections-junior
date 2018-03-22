@@ -19,7 +19,7 @@ exports.create = (req, res) => {
 	const imageName = candidate._id + path.extname(image.name)
 	candidate.image = imageName
 
-	image.mv(path.resolve(studentElectionsSenior.imagesDir, imageName))
+	image.mv(path.resolve(studentElectionsJunior.imagesDir, imageName))
 
 	candidate.save()
 	.then(() => res.send({success: true}))
@@ -35,7 +35,7 @@ exports.delete = (req, res) => {
 	Candidate.findById(id)
 	.then(candidate => {
 		if (candidate) {
-			const imagePath = path.resolve(studentElectionsSenior.imagesDir, candidate.image)
+			const imagePath = path.resolve(studentElectionsJunior.imagesDir, candidate.image)
 			fs.unlinkSync(imagePath)
 			candidate.remove()
 			.then(() => res.send({success: true}))

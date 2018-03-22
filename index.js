@@ -8,7 +8,7 @@ function init() {
 	app.set('view engine', 'hbs')
 	app.set('views', __dirname + "/client/views")
 
-	studentElectionsSenior = require("./config.json")
+	studentElectionsJunior = require("./config.json")
 	require("./routes/clientRoutes")(app)
 
 	adminApp.init()
