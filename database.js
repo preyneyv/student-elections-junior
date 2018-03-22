@@ -24,6 +24,10 @@ const positionSchema = new Schema({
 			teacherVotes: {
 				type: Number,
 				default: 0
+			},
+			managementVotes: {
+				type: Number,
+				default: 0
 			}
 		}
 	]
@@ -75,9 +79,23 @@ const teacherSchema = new Schema({
 	}
 })
 
+const managementSchema = new Schema({
+	pin: String,
+	name: String,
+	used: {
+		type: Boolean,
+		default: false
+	},
+	voted: {
+		type: Boolean,
+		default: false
+	}
+})
+
 module.exports = {
 	Candidate: mongoose.model('Candidate', candidateSchema),
 	Position: mongoose.model('Position', positionSchema),
 	Student: mongoose.model('Student', studentSchema),
+	Management: mongoose.model('Management', managementSchema),
 	Teacher: mongoose.model('Teacher', teacherSchema)
 }

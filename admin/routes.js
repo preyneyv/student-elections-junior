@@ -41,4 +41,6 @@ module.exports = (app) => {
 
 	app.route('/api/results')
 	.get(positionController.results)
+
+	app.use('/images', express.static(studentElectionsJunior.imagesDir))
 }

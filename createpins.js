@@ -1,15 +1,10 @@
-global.studentElectionsSenior = require('./config')
-const { Teacher } = require('./database')
+global.studentElectionsJunior = require('./config')
+const { Management } = require('./database')
 
-const pins = require('./teacherpins')
-
-const map = pins.map(teacherDetails => {
-	const teacher = new Teacher({
-		...teacherDetails,
-		pin: ("0000" + teacherDetails.pin).substr(-4,4)
+for (var i = 0; i < 20; i++) {
+	const management = new Management({
+		pin: ("0000" + i).substr(-4,4),
+		name: "Management"
 	})
-	return teacher.save()
-})
-
-Promise.all(map)
-.then(() => console.log("SAVED"))
+	management.save()
+}

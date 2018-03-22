@@ -9,6 +9,9 @@
 
 
 	<style type="text/css">
+		#math {
+			font-size: 20px;
+		}
 		body {
 			margin: 16px;
 			font-size: 24px;
@@ -32,17 +35,46 @@
 					<th>{{name}}</th>
 					{{/each}}
 				</tr>
+				<tr>
+					<th></th>
+					{{#each candidates}}
+					<th><img src="images/{{image}}" width="140"></th>
+					{{/each}}
+				</tr>
 			</thead>
 			<tbody>
 				<tr>
-					<th>Votes</th>
+					<th>Student Votes</th>
 					{{#each candidates}}
 					<td>{{votes}}</td>
+					{{/each}}
+				</tr>
+				<tr>
+					<th>Teacher Votes</th>
+					{{#each candidates}}
+					<td>{{teacherVotes}}</td>
+					{{/each}}
+				</tr>
+				<tr>
+					<th>Management Votes</th>
+					{{#each candidates}}
+					<td>{{managementVotes}}</td>
+					{{/each}}
+				</tr>
+				<tr>
+					<th>Total</th>
+					{{#each candidates}}
+					<td>{{total}}</td>
 					{{/each}}
 				</tr>
 			</tbody>
 		</table>
 	</script>
+	Total is calculated as follows for each position:<br>
+	<pre id="math">Vote Ratio = Total Student Votes / (Total Management Votes + Total Teacher Votes)
+Total = Student Votes + (Management Votes + Teacher Votes) × Vote Ratio</pre>
+
+	<br>
 	<select id="role-selection">
 		<option selected disabled>Select a Role</option>
 	</select>
@@ -63,6 +95,13 @@
 		const position = results.filter(result => result.position == role)[0]
 		position.colspan = position.candidates.length + 1
 
+		const totalStudentVotes = position.candidates.reduce((a, b) => a + b.votes, 0)
+		const totalTeacherManagementVotes = position.candidates.reduce((a, b) => a + b.teacherVotes + b.managementVotes, 0)
+		const teacherToStudent = totalStudentVotes / totalTeacherManagementVotes
+		console.log(totalStudentVotes, totalTeacherManagementVotes, teacherToStudent)
+		position.candidates.forEach(c => 
+			c.total = c.votes+(c.teacherVotes+c.managementVotes)*teacherToStudent
+		)
 		position.candidates = _.orderBy(position.candidates, 'votes', 'desc')
 
 		const table = $(tableTemplate(position))
