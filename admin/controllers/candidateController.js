@@ -1,6 +1,6 @@
 const path = require('path')
 const fs = require('fs')
-const { Candidate, Position, Student } = require("../database")
+const { Candidate, Position, Student } = require("../../database")
 
 exports.list = (req, res) => {
 	Candidate.find({})

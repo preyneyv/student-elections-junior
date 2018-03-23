@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Import/Export | Student Elections</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900|Material+Icons" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js" integrity="sha256-YFhaeQSVBgAFNN5z4I9YRB2jCuqc2nvypz0Q2eQzcx8=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.3.7/papaparse.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="theme.css">
+	<link rel="stylesheet" type="text/css" href="import.css">
+
+	<script src="import.js" defer></script>
+</head>
+<body>
+	<div id="sidebar">
+		<div id="sidebar-title">Student Elections</div>
+		<a href="./candidates">Candidates</a>
+		<a href="./positions">Positions</a>
+		<a href="./students">Students</a>
+		<a href="./results">Results</a>
+		<a class="current" href="./import">Import/Export</a>
+		<div id="sidebar-spacer"></div>
+		<a href="../">Back</a>
+	</div>
+	<div id="content">
+		<div id="title-row">
+			<div id="page-title">Import/Export</div>
+			<div class="spacer"></div>
+			<a href="downloads/Election Format.zip" download>Download<br>Format</a>
+		</div>
+		<div>
+			<h2>Import</h2>
+			Download the format files, fill them out, then upload them here.<br>
+			<b>WARNING:</b> This will clear all existing entries.
+			<table class="files-table">
+				<tr>
+					<td>Positions</td>
+					<td><input type="file" id="positions-file" /></td>
+				</tr>
+				<tr>
+					<td>Students</td>
+					<td><input type="file" id="students-file" /></td>
+				</tr>
+				<tr>
+					<td>Teachers</td>
+					<td><input type="file" id="teachers-file" /></td>
+				</tr>
+				<tr>
+					<td>Management</td>
+					<td><input type="file" id="management-file" /></td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						<button id="upload-button">Upload</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div>
+			<h2>Export</h2>
+			Download the generated pins for the users.
+			<table class="files-table">
+				<tr>
+					<td>Students</td>
+					<td><a href="downloads/pins/student.csv">Download</a></td>
+				</tr>
+				<tr>
+					<td>Teachers</td>
+					<td><a href="downloads/pins/teacher.csv">Download</a></td>
+				</tr>
+				<tr>
+					<td>Management</td>
+					<td><a href="downloads/pins/management.csv">Download</a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

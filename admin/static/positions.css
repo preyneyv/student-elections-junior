@@ -71,13 +71,17 @@
 	outline: none;
 }
 
-#create-position-modal {
+#create-position-modal,
+#edit-position-modal,
+#view-candidates-modal {
 	opacity: 0;
 	transition: opacity 300ms;
 	pointer-events: none;
 }
-#create-position-modal.show {opacity: 1; pointer-events: all;}
-#modal-background {
+#create-position-modal.show,
+#edit-position-modal.show,
+#view-candidates-modal.show {opacity: 1; pointer-events: all;}
+.modal-background {
 	background: rgba(0,0,0,0.7);
 	position: fixed;
 	top: 0;
@@ -86,25 +90,26 @@
 	height: 100vh;
 	z-index: 5;
 }
-#modal-window {
+.modal-window {
 	position: fixed;
 	z-index: 6;
 	top: 50%;
 	left: 50%;
-
+	min-width: 300px;
 	transform: translateX(-50%) translateY(-50%);
 	background: white;
 	color: #444;
 }
-#modal-header {
+.modal-header {
 	font-size: 2em;
 	text-transform: uppercase;
+	letter-spacing: 2px;
 	padding: 16px;
 }
-#modal-content {
+.modal-content {
 	padding: 0 16px;
 }
-#modal-window input {
+.modal-window input {
 	display: block;
 	width: 100%;
 	box-sizing: border-box;
@@ -113,12 +118,12 @@
 	outline: none;
 	font-size: 18px;
 }
-#modal-window input + input {margin-top: 8px;}
-#modal-footer {
+.modal-window input + input {margin-top: 8px;}
+.modal-footer {
 	padding: 16px;
 	text-align: right;
 }
-#modal-footer button {
+.modal-footer button {
 	margin-left: 8px;
 	padding: 8px 16px;
 	outline: none;
@@ -129,12 +134,13 @@
 	cursor: pointer;
 	background: transparent;
 }
-#modal-footer #modal-save-button {
+.modal-footer .primary {
 	background: #FC5C7D;
 	background: -webkit-linear-gradient(to right, #6A82FB, #FC5C7D);
 	background: linear-gradient(to right, #6A82FB, #FC5C7D);
 	background-attachment: fixed;
 	color: white;
+	letter-spacing: 1px;
 }
 
 .no-positions {
@@ -151,4 +157,39 @@
 	font-size: 6em;
 	letter-spacing: 2px;
 	opacity: 0.3;
+}
+
+#view-candidates-table {
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px solid black;
+}
+#view-candidates-table th {
+	border-bottom: 1px solid black;
+	text-transform: uppercase;
+	font-weight: 900;
+	letter-spacing: 2px;
+}
+#view-candidates-table th:first-child {
+	width: 36px;
+	box-sizing: border-box;
+}
+#view-candidates-table th,
+#view-candidates-table td {
+	padding: 8px;
+	border-right: 1px dotted rgba(0,0,0,0.15);
+}
+#view-candidates-table tr:nth-child(2) td:first-child::before {
+	content: "star";
+	font-family: 'Material Icons';
+	font-size: 20px;
+	color: #FC5C7D;
+}
+#view-candidates-table tr:nth-child(2n) td {
+	background: rgba(0,0,0,0.05);
+
+}
+
+#view-candidates-position-name {
+	display: inline-block;
 }

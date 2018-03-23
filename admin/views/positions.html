@@ -4,9 +4,11 @@
 	<title>Positions | Student Elections</title>
 
 	<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900|Material+Icons" rel="stylesheet">
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js" integrity="sha256-YFhaeQSVBgAFNN5z4I9YRB2jCuqc2nvypz0Q2eQzcx8=" crossorigin="anonymous"></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js" integrity="sha256-YFhaeQSVBgAFNN5z4I9YRB2jCuqc2nvypz0Q2eQzcx8=" crossorigin="anonymous"></script> -->
 
 	<script defer src="positions.js"></script>
 	<link rel="stylesheet" type="text/css" href="positions.css">
@@ -16,9 +18,10 @@
 	<div id="sidebar">
 		<div id="sidebar-title">Student Elections</div>
 		<a href="./candidates">Candidates</a>
-		<a class="current" href="./">Positions</a>
+		<a class="current" href="./positions">Positions</a>
 		<a href="./students">Students</a>
 		<a href="./results">Results</a>
+		<a href="./import">Import</a>
 		<div id="sidebar-spacer"></div>
 		<a href="../">Back</a>
 	</div>
@@ -28,12 +31,26 @@
 			<div class="spacer"></div>
 			<button id="create-position-button">Create<br>New</button>
 		</div>
+		<div>
+			<table id="positions-table">
+				<thead>
+					<tr>
+						<th>Position</th>
+						<th>Grade</th>
+						<th>Section</th>
+						<th>House</th>
+						<th class="nosort view-candidates">Candidates</th>
+						<th class="nosort">Actions</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
 	</div>
 	<div id="create-position-modal">
-		<div id="modal-background"></div>
-		<div id="modal-window">
-			<div id="modal-header">Create Position</div>
-			<div id="modal-content">
+		<div class="modal-background"></div>
+		<div class="modal-window">
+			<div class="modal-header">Create Position</div>
+			<div class="modal-content">
 				<input type="text" id="new-position-name" placeholder="Name">
 				<input
 				type="text"
@@ -63,9 +80,92 @@
 					<option>Caesar</option>
 				</datalist>
 			</div>
-			<div id="modal-footer">
-				<button id="modal-cancel-button">Cancel</button>
-				<button id="modal-save-button">Save</button>
+			<div class="modal-footer">
+				<button id="create-position-cancel-button">Cancel</button>
+				<button class="primary" id="create-position-save-button">Save</button>
+			</div>
+		</div>
+	</div>
+	<div id="edit-position-modal">
+		<div class="modal-background"></div>
+		<div class="modal-window">
+			<div class="modal-header">Edit Position</div>
+			<div class="modal-content">
+				<input type="text" id="edit-position-name" placeholder="Name">
+				<input
+				type="text"
+				id="edit-position-grade"
+				placeholder="Grades (optional) Eg: 1,2,3">
+				<input
+				list="section-datalist"
+				type="text"
+				id="edit-position-section"
+				placeholder="Section (optional)">
+				<input
+				list="house-datalist"
+				type="text"
+				id="edit-position-house"
+				placeholder="House (optional)">
+
+				<datalist id="section-datalist">
+					<option>Beta</option>
+					<option>Gamma</option>
+					<option>Delta</option>
+				</datalist>
+
+				<datalist id="house-datalist">
+					<option>Poseidon</option>
+					<option>Phoenix</option>
+					<option>Hercules</option>
+					<option>Caesar</option>
+				</datalist>
+			</div>
+			<div class="modal-footer">
+				<button id="edit-position-cancel-button">Cancel</button>
+				<button class="primary" id="edit-position-save-button">Save</button>
+			</div>
+		</div>
+	</div>
+	<div id="view-candidates-modal">
+		<div class="modal-background"></div>
+		<div class="modal-window">
+			<div class="modal-header">
+				Candidates for <span id="view-candidates-position-name">President</span>
+			</div>
+			<div class="modal-content">
+				<table id="view-candidates-table">
+					<thead>
+						<tr>
+							<th></th>
+							<th>Name</th>
+							<th>Grade</th>
+							<th>Section</th>
+							<th>House</th>
+							<th>Votes</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td></td>
+							<td>Joe Bob</td>
+							<td>10</td>
+							<td>Beta</td>
+							<td>Phoenix</td>
+							<td>1231</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>Bob Joe</td>
+							<td>9</td>
+							<td>Beta</td>
+							<td>Poseidon</td>
+							<td>123</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button id="view-candidates-close-button" class="primary">Close</button>
 			</div>
 		</div>
 	</div>

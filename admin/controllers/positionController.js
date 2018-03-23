@@ -1,6 +1,6 @@
 const path = require('path')
 const fs = require('fs')
-const { Candidate, Position, Student } = require("../database")
+const { Candidate, Position, Student } = require("../../database")
 
 exports.list = (req, res) => {
 	let positions = []
@@ -35,22 +35,22 @@ exports.create = (req, res) => {
 		throw e
 	})
 }
-exports.update = (req, res) => res.send({success: false})
-
+exports.update = (req, res) => {
+	const { id } = req.params
+	const { name, gradeSpecific, sectionSpecific, houseSpecific } = req.body
+	Position.findByIdAndUpdate(id, {
+		position: name,
+		gradeSpecific,
+		sectionSpecific,
+		houseSpecific
+	})
+	.then(() => res.send({success: true}))
+	.catch(e => res.status(500).send({success: false, message: "unexpected"}))
+}
 exports.delete = (req, res) => {
 	const { id } = req.params
-	Candidate.findById(id)
-	.then(candidate => {
-		if (candidate) {
-			const imagePath = path.resolve(studentElectionsJunior.imagesDir, candidate.image)
-			fs.unlinkSync(imagePath)
-			candidate.remove()
-			.then(() => res.send({success: true}))
-
-		} else {
-			res.status(400).send({success: false, message: "bad_candidate_id"})
-		}
-	})
+	Position.findByIdAndRemove(id)
+	.then(() => res.send({success: true}))
 	.catch(e => {
 		res.status(500).send({success: false})
 		throw e
@@ -116,4 +116,23 @@ exports.results = (req, res) => {
 		return Promise.all(promises)
 	})
 	.then(() => res.send({success: true, positions}))
+}
+
+exports.bulkCreate = (req, res, next) => {
+	const { positions } = req.post
+	Position.remove({}) // remove all existing ones
+	.then(() => Position.collection.insert(positions.map(p => {
+		return {
+			position: p[0],
+			gradeSpecific: p[1].split(/, ?/g).map(g => parseInt(g)).filter(g => !isNaN(g)) || null,
+			sectionSpecific: p[2] || null,
+			houseSpecific: p[3] || null,
+			candidates: []
+		}
+	})))
+	.then(() => next())
+	.catch(e => {
+		res.status(500).send({success: false, message: 'unexpected'})
+		throw e
+	})
 }

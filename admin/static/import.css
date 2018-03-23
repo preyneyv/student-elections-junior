@@ -1,0 +1,61 @@
+h2 {
+	margin: 0;
+	text-transform: uppercase;
+	letter-spacing: 4px;
+	font-weight: 300;
+	margin-bottom: 8px;
+}
+#content > :not(#title-row) {
+	padding: 16px;
+	background: white;
+	color: rgba(0,0,0,0.8);
+	box-shadow: 0px 3px 6px rgba(0,0,0,0.15);
+	margin-bottom: 32px;
+}
+#content > :last-child {
+	margin-bottom: 0 !important;
+}
+.files-table {
+	border-spacing: 0px;
+	border-top: 1px dotted rgba(0,0,0,0.15);
+	margin-top: 8px;
+}
+.files-table td {
+	border-bottom: 1px dotted rgba(0,0,0,0.15);
+	padding: 8px;
+}
+.files-table td:first-child {
+	padding-right: 8px;
+}
+
+.files-table a,
+#upload-button {
+	text-decoration: none;
+	color: white;
+	background: #FC5C7D;
+	background: -webkit-linear-gradient(to right, #6A82FB, #FC5C7D);
+	background: linear-gradient(to right, #6A82FB, #FC5C7D);
+	background-attachment: fixed;
+	display: inline-block;
+	padding: 8px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	cursor: pointer;
+	outline: none;
+	transition: box-shadow 150ms;
+}
+.files-table a:hover,
+#upload-button:hover {
+	box-shadow: 0px 3px 6px rgba(0,0,0,0.15);
+}
+.files-table tr:last-child td {
+	/*text-align: center;*/
+}
+#upload-button {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 100%;
+	padding: 8px 16px;
+	font-size: inherit;
+	border: none;
+}

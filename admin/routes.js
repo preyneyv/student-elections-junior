@@ -1,10 +1,21 @@
 const express = require('express')
 
-const candidateController = require('./candidateController')
-const positionController = require('./positionController')
-const studentController = require('./studentController')
+const candidateController = require('./controllers/candidateController')
+const positionController = require('./controllers/positionController')
+const studentController = require('./controllers/studentController')
+const teacherController = require('./controllers/teacherController')
+const managementController = require('./controllers/managementController')
 
 module.exports = (app) => {
+	app.use('/downloads/pins/*', (req, res, next) => {
+		// generate all the pin csvs
+		Promise.all([
+			studentController.generatePinFile(),
+			teacherController.generatePinFile(),
+			managementController.generatePinFile(),
+		])
+		.then(() => next())
+	}) 
 	app.use(express.static(__dirname + "/static"))
 
 	app.get('/', (req, res) => res.redirect('./candidates'))
@@ -12,6 +23,7 @@ module.exports = (app) => {
 	app.get('/positions', (req, res) => res.file('views/positions.html'))
 	app.get('/students', (req, res) => res.file('views/students.html'))
 	app.get('/results', (req, res) => res.file('views/results.html'))
+	app.get('/import', (req, res) => res.file('views/import.html'))
 
 	app.route('/api/candidates/')
 	.get(candidateController.list)
@@ -41,6 +53,14 @@ module.exports = (app) => {
 
 	app.route('/api/results')
 	.get(positionController.results)
+
+	app.post('/api/bulkCreate', 
+		positionController.bulkCreate,
+		studentController.bulkCreate,
+		teacherController.bulkCreate,
+		managementController.bulkCreate,
+		(req, res) => res.send({success: true})
+	)
 
 	app.use('/images', express.static(studentElectionsJunior.imagesDir))
 }
