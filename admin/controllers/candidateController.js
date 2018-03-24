@@ -49,3 +49,27 @@ exports.delete = (req, res) => {
 		throw e
 	})
 }
+
+exports.addAbstain = (req, res, next) => {
+	const abstainUser = new Candidate({
+		name: "Abstain",
+		image: "abstain.png"
+	})
+	abstainUser.save()
+	.then(() =>
+		Position.update({}, {
+			$push: {
+				candidates: {
+					candidateId: abstainUser._id,
+					votes: 0
+				}
+			}
+		},
+		{multi: true}
+	))
+	.then(() => next())
+	.catch(e => {
+		res.status(500).send({success: false})
+		throw e
+	})
+}

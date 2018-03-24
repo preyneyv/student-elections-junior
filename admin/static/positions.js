@@ -1,11 +1,4 @@
-let positions = [], candidates
-
-$(window).on('load', () => {
-	axios.get('api/candidates')
-	.then(response => response.data)
-	.then(data => candidates = data.candidates)
-	.then(() => console.log("Candidates loaded!"))
-})
+let positions = []
 
 const table = $("#positions-table").DataTable({
 	autoWidth: false,
@@ -40,20 +33,14 @@ const table = $("#positions-table").DataTable({
 		{
 			targets: -1,
 			className: 'actions'
-		}
+		},
 	],
 	drawCallback: function() {
 		console.log("Table drawn!")
 		$("#positions-table .row-view-candidates").on('click', function () {
 			const positionId = $(this).data('id')
 			const position = positions.filter(p => p._id == positionId)[0]
-			const _candidates = []
-			position.candidates.forEach(entry => {
-				const candidate = candidates.filter(c => c._id == entry.candidateId)[0]
-				candidate.votes = entry.votes
-				candidates.push(candidate)
-			})
-			position.candidates = _candidates
+			console.log(position)
 			viewCandidatesModal.show(position)
 		})
 		$("#positions-table .row-delete").on('click', function() {
@@ -70,9 +57,9 @@ const table = $("#positions-table").DataTable({
 		$("#positions-table .row-edit").on('click', function() {
 			const positionId = $(this).data('id')
 			const position = positions.filter(p => p._id == positionId)[0]
-			console.log(position)
 			editPositionModal.show(position)
 		})
+		$("#positions-table td:not()")
 	}
 })
 
@@ -102,7 +89,6 @@ new (function() {
 		})
 		.then(response => response.data)
 		.then(data => {
-			console.log(data)
 			that.show()
 		})
 	}
@@ -116,15 +102,19 @@ let viewCandidatesModal = new (function() {
 	this.show = position => {
 		$("#view-candidates-position-name").html(position.position)
 		$("#view-candidates-table tbody").empty()
-		position.candidates.forEach(candidate => {
-			const row = $("<tr>")
+		_.sortBy(position.candidates, 'votes', 'desc')
+		.reverse()
+		.forEach(candidate => {
+			$("<tr>")
 			.append($("<td>"))
 			.append($("<td>").html(candidate.name))
 			.append($("<td>").html(candidate.grade))
 			.append($("<td>").html(candidate.section))
 			.append($("<td>").html(candidate.house))
 			.append($("<td>").html(candidate.votes))
-			console.log(row)
+			.append($("<td>").html(candidate.teacherVotes))
+			.append($("<td>").html(candidate.managementVotes))
+			.appendTo("#view-candidates-table tbody")
 		})
 		$("#view-candidates-modal").addClass('show')
 	}

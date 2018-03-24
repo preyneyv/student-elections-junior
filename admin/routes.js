@@ -59,6 +59,7 @@ module.exports = (app) => {
 		studentController.bulkCreate,
 		teacherController.bulkCreate,
 		managementController.bulkCreate,
+		candidateController.addAbstain,
 		(req, res) => res.send({success: true})
 	)
 

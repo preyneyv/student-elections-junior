@@ -147,11 +147,8 @@ body {
 .dataTable .odd {
 	background: rgba(0,0,0,0.05);
 }
-.dataTable .odd:hover {
-	background: rgba(0,0,0,0.07);
-}
-.dataTable .even:hover {
-	background: rgba(0,0,0,0.01);
+.dataTable tbody tr:hover {
+	background: rgba(252, 92, 125, 0.21);
 }
 .dataTables_info,
 .dataTables_length {

@@ -11,7 +11,13 @@ exports.list = (req, res) => {
 		})
 		.then(candidates => {
 			const position = _position.toJSON()
-			position.candidates = candidates
+			position.candidates = position.candidates.map(entry => {
+				const candidate = candidates.filter(c => c._id+"" == entry.candidateId+"")[0].toJSON()
+				candidate.votes = entry.votes
+				candidate.teacherVotes = entry.teacherVotes
+				candidate.managementVotes = entry.managementVotes
+				return candidate
+			})
 			positions.push(position)
 		}))
 
