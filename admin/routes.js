@@ -22,6 +22,8 @@ module.exports = (app) => {
 	app.get('/candidates', (req, res) => res.file('views/candidates.html'))
 	app.get('/positions', (req, res) => res.file('views/positions.html'))
 	app.get('/students', (req, res) => res.file('views/students.html'))
+	app.get('/teachers', (req, res) => res.file('views/teachers.html'))
+	app.get('/management', (req, res) => res.file('views/management.html'))
 	app.get('/results', (req, res) => res.file('views/results.html'))
 	app.get('/import', (req, res) => res.file('views/import.html'))
 
@@ -51,6 +53,15 @@ module.exports = (app) => {
 	.delete(studentController.delete)
 	app.route('/api/students/:id/reset')
 	.post(studentController.resetPin)
+
+	app.route('/api/teachers/')
+	.get(teacherController.list)
+	.put(teacherController.create)
+	app.route('/api/teachers/:id')
+	.patch(teacherController.update)
+	.delete(teacherController.delete)
+	app.route('/api/teachers/:id/reset')
+	.post(teacherController.resetPin)
 
 	app.route('/api/results')
 	.get(positionController.results)

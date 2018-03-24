@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Teachers | Student Elections</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900|Material+Icons" rel="stylesheet">
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js" integrity="sha256-YFhaeQSVBgAFNN5z4I9YRB2jCuqc2nvypz0Q2eQzcx8=" crossorigin="anonymous"></script>
+
+	<script defer src="teachers.js"></script>
+	<link rel="stylesheet" type="text/css" href="teachers.css">
+	<link rel="stylesheet" type="text/css" href="theme.css">
+</head>
+<body>
+	<div id="sidebar">
+		<div id="sidebar-title">Student Elections</div>
+		<a href="./candidates">Candidates</a>
+		<a href="./positions">Positions</a>
+		<a href="./students">Students</a>
+		<a class="current" href="./teachers">Teachers</a>
+		<a href="./results">Results</a>
+		<a href="./import">Import/Export</a>
+		<div id="sidebar-spacer"></div>
+		<a href="../">Back</a>
+	</div>
+	<div id="content">
+		<div id="title-row">
+			<div id="page-title">Teachers</div>
+			<div class="spacer"></div>
+			<button id="create-teacher-button">Create<br>New</button>
+		</div>
+		<div>
+			<table id="teachers-table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Pin</th>
+						<th>House</th>
+						<th>Used</th>
+						<th>Voted</th>
+						<th class="nosort">Actions</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+	</div>
+	<datalist id="house-datalist">
+		<option>Poseidon</option>
+		<option>Phoenix</option>
+		<option>Hercules</option>
+		<option>Caesar</option>
+	</datalist>
+	<div id="new-teacher-modal" style="display: none;">
+		<div class="modal-background"></div>
+		<div class="modal-window">
+			<div class="modal-header">Create Teacher</div>
+			<div class="modal-content">
+				<input required id="new-teacher-name" type="text" placeholder="Name">
+				<input required
+				list="house-datalist"
+				id="new-teacher-house"
+				type="text"
+				placeholder="House">
+			</div>
+			<div class="modal-footer">
+				<button id="new-teacher-cancel-button">Cancel</button>
+				<button class="primary" id="new-teacher-save-button">Save</button>
+			</div>	
+		</div>
+	</div>
+
+	<div id="edit-teacher-modal" style="display: none;">
+		<div class="modal-background"></div>
+
+		<div class="modal-window">
+			<div class="modal-header">Edit Teacher</div>
+			<div class="modal-content">
+				<input id="edit-teacher-name" type="text" placeholder="Name">
+				<input id="edit-teacher-grade" type="number" min="1" max="12" placeholder="Grade">
+				<input
+				list="section-datalist"
+				id="edit-teacher-section"
+				type="text"
+				placeholder="Section">
+				<input
+				list="house-datalist"
+				id="edit-teacher-house"
+				type="text"
+				placeholder="House">
+			</div>
+			<div class="modal-footer">
+				<button id="edit-teacher-cancel-button">Cancel</button>
+				<button class="primary" id="edit-teacher-save-button">Save</button>
+			</div>	
+		</div>
+	</div>
+</body>
+</html>
