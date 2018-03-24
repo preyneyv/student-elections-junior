@@ -46,13 +46,13 @@ const table = $("#positions-table").DataTable({
 	],
 	drawCallback: function() {
 		console.log("Table drawn!")
-		$("#positions-table .row-view-candidates").on('click', function () {
+		$("#positions-table .row-view-candidates").one('click', function () {
 			const positionId = $(this).data('id')
 			const position = positions.filter(p => p._id == positionId)[0]
 			console.log(position)
 			viewCandidatesModal.show(position)
 		})
-		$("#positions-table .row-delete").on('click', function() {
+		$("#positions-table .row-delete").one('click', function() {
 			const positionId = $(this).data('id')
 			const position = positions.filter(p => p._id == positionId)[0]
 			if (!confirm(`Are you sure you want to delete ${position.position}?`)) return;
@@ -63,7 +63,7 @@ const table = $("#positions-table").DataTable({
 				$("#position-table").css('pointer-events', 'all')
 			})
 		})
-		$("#positions-table .row-edit").on('click', function() {
+		$("#positions-table .row-edit").one('click', function() {
 			const positionId = $(this).data('id')
 			const position = positions.filter(p => p._id == positionId)[0]
 			editPositionModal.show(position)

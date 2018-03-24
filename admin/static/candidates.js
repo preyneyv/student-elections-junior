@@ -47,7 +47,7 @@ const table = $("#candidates-table").DataTable({
 	],
 	drawCallback: function() {
 		console.log("Table drawn!")
-		$("#candidates-table .row-delete").on('click', function() {
+		$("#candidates-table .row-delete").one('click', function() {
 			const candidateId = $(this).data('id')
 			const candidate = candidates.filter(c => c._id == candidateId)[0]
 			if (!confirm(`Are you sure you want to delete ${candidate.name}?`)) return;
@@ -58,7 +58,7 @@ const table = $("#candidates-table").DataTable({
 				$("#candidates-table").css('pointer-events', 'all')
 			})
 		})
-		$("#candidates-table .row-edit").on('click', function() {
+		$("#candidates-table .row-edit").one('click', function() {
 			const candidateId = $(this).data('id')
 			const candidate = candidates.filter(c => c._id == candidateId)[0]
 			editCandidateModal.show(candidate)

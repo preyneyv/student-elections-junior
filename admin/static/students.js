@@ -26,11 +26,16 @@ const table = $("#students-table").DataTable({
 		{mRender: (data, type, row) => row.voted ? "Voted" : "Not Voted"},
 		{ // action buttons
 			mRender: function (data, type, row) {
-				return `
-					<i class="material-icons row-reset-pin" data-id="${row._id}">autorenew</i>
+				let outputstring = `
 					<i class="material-icons row-edit" data-id="${row._id}">edit</i>
 					<i class="material-icons row-delete" data-id="${row._id}">delete</i>
 				`
+				if (row.used) {
+					outputstring = `<i class="material-icons row-reset-pin" data-id="${row._id}">autorenew</i>` + outputstring
+				} else {
+					outputstring = `<i class="material-icons disabled row-reset-pin" data-id="${row._id}">autorenew</i>` + outputstring
+				}
+				return outputstring
 			}
 		},
 	],
@@ -51,7 +56,7 @@ const table = $("#students-table").DataTable({
 	],
 	drawCallback: function() {
 		console.log("Table drawn!")
-		$("#students-table .row-delete").on('click', function() {
+		$("#students-table .row-delete").one('click', function() {
 			const studentId = $(this).data('id')
 			const student = students.filter(c => c._id == studentId)[0]
 			if (!confirm(`Are you sure you want to delete ${student.name}?`)) return;
@@ -62,12 +67,12 @@ const table = $("#students-table").DataTable({
 				$("#students-table").css('pointer-events', 'all')
 			})
 		})
-		$("#students-table .row-edit").on('click', function() {
+		$("#students-table .row-edit").one('click', function() {
 			const studentId = $(this).data('id')
 			const student = students.filter(c => c._id == studentId)[0]
 			editStudentModal.show(student)
 		})
-		$("#students-table .row-reset-pin").on('click', function() {
+		$("#students-table .row-reset-pin").one('click', function() {
 			const studentId = $(this).data('id')
 			const student = students.filter(c => c._id == studentId)[0]
 			if (!confirm(`Are you sure you want to reset ${student.name}'s pin?`)) return;
