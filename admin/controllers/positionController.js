@@ -170,14 +170,15 @@ exports.generateResults = () => {
 		return Promise.all(promises)
 	})
 	.then(() => {
-		let outputJSON = positions.reduce((output,position) => {
-			let positionJSON = [
-				[position.position]
-			]
+		let outputJSON = positions
+		.sort((a, b) => a.position > b.position ? 1 : -1)
+		.reduce((output,position) => {
+			let positionJSON = []
 			position.candidates
 			.sort((a, b) => b.votes - a.votes)
 			.forEach(candidate => {
 				positionJSON.push([
+					position.position,
 					candidate.name,
 					candidate.grade,
 					candidate.section,
@@ -187,10 +188,10 @@ exports.generateResults = () => {
 					candidate.managementVotes,
 				])
 			})
-			positionJSON.push(['---','---','---','---','---','---','---'])
+			positionJSON.push(['', ''])
 			return output.concat(positionJSON)
 		}, [
-			['Name', 'Grade', 'Section', 'House', 'Student Votes', 'Teacher Votes', 'Management Votes']
+			['Position', 'Name', 'Grade', 'Section', 'House', 'Student Votes', 'Teacher Votes', 'Management Votes']
 		])
 		let output = Papa.unparse(outputJSON)
 		fs.writeFileSync(path.resolve(__dirname, '../static/downloads/results.csv'), output)

@@ -17,6 +17,13 @@ h2 {
 	padding: 8px;
 	position: relative;
 }
+.results-table th:first-child {
+	background: rgba(0,0,0,0.1);
+	border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+.results-table tbody tr:last-child th:first-child {
+	border-bottom: 1px solid black;
+}
 #title-row {
 	flex: 0 0 100% !important;
 	padding: 16px;
