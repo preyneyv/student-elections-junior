@@ -16,6 +16,10 @@ module.exports = (app) => {
 		])
 		.then(() => next())
 	}) 
+	app.use('/downloads/results.csv', (req, res, next) => {
+		positionController.generateResults()
+		.then(() => next())
+	})
 	app.use(express.static(__dirname + "/static"))
 
 	app.get('/', (req, res) => res.redirect('./candidates'))
