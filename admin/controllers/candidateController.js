@@ -4,6 +4,7 @@ const { Candidate, Position, Student } = require("../../database")
 
 exports.list = (req, res) => {
 	Candidate.find({})
+	.then(candidates => candidates.filter(candidate => candidate.name != "Abstain"))
 	.then(candidates => res.send({success: true, candidates}))
 }
 exports.create = (req, res) => {

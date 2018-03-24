@@ -11,7 +11,7 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js" integrity="sha256-YFhaeQSVBgAFNN5z4I9YRB2jCuqc2nvypz0Q2eQzcx8=" crossorigin="anonymous"></script>
 
-	<script defer src="candidates.js"></script>
+	<script defer src="students.js"></script>
 	<link rel="stylesheet" type="text/css" href="students.css">
 	<link rel="stylesheet" type="text/css" href="theme.css">
 </head>
@@ -33,80 +33,80 @@
 			<button id="create-student-button">Create<br>New</button>
 		</div>
 		<div>
-			<table id="candidates-table">
+			<table id="students-table">
 				<thead>
 					<tr>
 						<th>Name</th>
+						<th>Pin</th>
 						<th>Grade</th>
 						<th>Section</th>
 						<th>House</th>
+						<th>Used</th>
+						<th>Voted</th>
 						<th class="nosort">Actions</th>
 					</tr>
 				</thead>
 			</table>
 		</div>
 	</div>
-	<div id="create-candidate-modal">
+	<datalist id="section-datalist">
+		<option>Beta</option>
+		<option>Gamma</option>
+		<option>Delta</option>
+	</datalist>
+	<datalist id="house-datalist">
+		<option>Poseidon</option>
+		<option>Phoenix</option>
+		<option>Hercules</option>
+		<option>Caesar</option>
+	</datalist>
+	<div id="new-student-modal" style="display: none;">
 		<div class="modal-background"></div>
 		<div class="modal-window">
-			<div class="modal-header">Create Candidate</div>
+			<div class="modal-header">Create Student</div>
 			<div class="modal-content">
-				<input required id="new-candidate-name" type="text" placeholder="Name">
-				<input required id="new-candidate-grade" type="number" min="1" max="12" placeholder="Grade">
+				<input required id="new-student-name" type="text" placeholder="Name">
+				<input required id="new-student-grade" type="number" min="1" max="12" placeholder="Grade">
 				<input required
 				list="section-datalist"
-				id="new-candidate-section"
+				id="new-student-section"
 				type="text"
 				placeholder="Section">
 				<input required
 				list="house-datalist"
-				id="new-candidate-house"
+				id="new-student-house"
 				type="text"
 				placeholder="House">
-				<input required id="new-candidate-image" type="file">
-
-				<datalist id="section-datalist">
-					<option>Beta</option>
-					<option>Gamma</option>
-					<option>Delta</option>
-				</datalist>
-				<datalist id="house-datalist">
-					<option>Poseidon</option>
-					<option>Phoenix</option>
-					<option>Hercules</option>
-					<option>Caesar</option>
-				</datalist>
 			</div>
 			<div class="modal-footer">
-				<button id="new-candidate-cancel-button">Cancel</button>
-				<button class="primary" id="new-candidate-save-button">Save</button>
+				<button id="new-student-cancel-button">Cancel</button>
+				<button class="primary" id="new-student-save-button">Save</button>
 			</div>	
 		</div>
 	</div>
 
-	<div id="edit-candidate-modal">
+	<div id="edit-student-modal" style="display: none;">
 		<div class="modal-background"></div>
 
 		<div class="modal-window">
-			<div class="modal-header">Edit Candidate</div>
+			<div class="modal-header">Edit Student</div>
 			<div class="modal-content">
-				<input id="edit-candidate-name" type="text" placeholder="Name">
-				<input id="edit-candidate-grade" type="number" min="1" max="12" placeholder="Grade">
+				<input id="edit-student-name" type="text" placeholder="Name">
+				<input id="edit-student-grade" type="number" min="1" max="12" placeholder="Grade">
 				<input
 				list="section-datalist"
-				id="edit-candidate-section"
+				id="edit-student-section"
 				type="text"
 				placeholder="Section">
 				<input
 				list="house-datalist"
-				id="edit-candidate-house"
+				id="edit-student-house"
 				type="text"
 				placeholder="House">
-				<input id="edit-candidate-image" type="file">
 			</div>
 			<div class="modal-footer">
-				<button id="edit-candidate-cancel-button">Cancel</button>
-				<button class="primary" id="edit-candidate-save-button">Save</button>
+				<button id="edit-student-cancel-button">Cancel</button>
+				<button class="primary" id="edit-student-save-button">Save</button>
 			</div>	
 		</div>
 	</div>

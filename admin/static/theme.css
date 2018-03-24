@@ -161,6 +161,7 @@ body {
 .dataTables_filter {
 	float: right;
 }
+.dataTables_filter input {margin-left: 8px;}
 .dataTables_paginate {margin-top: 8px;}
 .dataTables_filter {margin-bottom: 8px;}
 
@@ -210,4 +211,67 @@ body {
 .paginate_button:active {
 	background: #FC5C7D;
 	color: white;
+}
+.paginate_button.current {pointer-events: none;}
+.paginate_button.disabled {
+	color: rgba(0,0,0,0.2);
+	pointer-events: none;
+}
+
+.modal-background {
+	background: rgba(0,0,0,0.7);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 5;
+}
+.modal-window {
+	position: fixed;
+	z-index: 6;
+	top: 50%;
+	left: 50%;
+
+	transform: translateX(-50%) translateY(-50%);
+	background: white;
+	color: #444;
+}
+.modal-header {
+	font-size: 2em;
+	text-transform: uppercase;
+	padding: 16px;
+}
+.modal-content {
+	padding: 0 16px;
+}
+.modal-window input {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	font: inherit;
+	padding: 8px;
+	outline: none;
+	font-size: 18px;
+}
+.modal-window input + input {margin-top: 8px;}
+.modal-footer {
+	padding: 16px;
+	text-align: right;
+}
+.modal-footer button {
+	margin-left: 8px;
+	padding: 8px 16px;
+	outline: none;
+	border: 0;
+	color: #C76AAB;
+	text-transform: uppercase;
+	font-size: 16px;
+	cursor: pointer;
+	background: transparent;
+}
+.modal-footer .primary {
+	background: #FC5C7D;
+	color: white;
+	letter-spacing: 1px;
 }

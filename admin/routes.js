@@ -28,7 +28,6 @@ module.exports = (app) => {
 	app.route('/api/candidates/')
 	.get(candidateController.list)
 	.put(candidateController.create)
-
 	app.route('/api/candidates/:id')
 	.patch(candidateController.update)
 	.delete(candidateController.delete)
@@ -36,7 +35,6 @@ module.exports = (app) => {
 	app.route('/api/positions/')
 	.get(positionController.list)
 	.put(positionController.create)
-
 	app.route('/api/positions/:id')
 	.patch(positionController.update)
 	.delete(positionController.delete)
@@ -45,11 +43,14 @@ module.exports = (app) => {
 	.delete(positionController.deleteAssociation)
 	.put(positionController.createAssociation)
 
-	app.route('/api/students/:id?')
+	app.route('/api/students/')
 	.get(studentController.list)
 	.put(studentController.create)
+	app.route('/api/students/:id')
 	.patch(studentController.update)
 	.delete(studentController.delete)
+	app.route('/api/students/:id/reset')
+	.post(studentController.resetPin)
 
 	app.route('/api/results')
 	.get(positionController.results)

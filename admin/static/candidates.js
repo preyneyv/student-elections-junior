@@ -47,12 +47,6 @@ const table = $("#candidates-table").DataTable({
 	],
 	drawCallback: function() {
 		console.log("Table drawn!")
-		$("#positions-table .row-view-candidates").on('click', function () {
-			const positionId = $(this).data('id')
-			const position = positions.filter(p => p._id == positionId)[0]
-			console.log(position)
-			viewCandidatesModal.show(position)
-		})
 		$("#candidates-table .row-delete").on('click', function() {
 			const candidateId = $(this).data('id')
 			const candidate = candidates.filter(c => c._id == candidateId)[0]

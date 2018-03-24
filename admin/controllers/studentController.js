@@ -8,9 +8,67 @@ exports.list = (req, res) => {
 	Student.find({})
 	.then(students => res.send({success: true, students}))
 }
-exports.create = (req, res) => {}
-exports.update = (req, res) => {}
-exports.delete = (req, res) => {}
+
+exports.create = (req, res) => {
+	let { name, grade, section, house } = req.post
+	let existingPins = []
+	Student.find()
+	.select('pin')
+	.then(students => {
+		existingPins = students.map(s => s.pin)
+		if (existingPins.length == 10000) {
+			return res.send({success: false, message: "cant_support_more_students"})
+		}
+		let pin = ("0000" + Math.floor(Math.random() * 10000)).substr(-4, 4)
+		while (existingPins.indexOf(pin) != -1) {
+			// get a new pin.
+			pin = ("0000" + Math.floor(Math.random() * 10000)).substr(-4, 4)
+		}
+		return (new Student({
+			name, grade, section, house, pin
+		})).save()
+	})
+	.then(() => res.send({success: true}))
+	.catch(e => {
+		res.status(500).send({success: false})
+		throw e
+	})
+}
+
+exports.update = (req, res) => {
+	let { id } = req.params
+	let { name, grade, section, house } = req.post
+
+	Student.findByIdAndUpdate(id, {
+		name, grade, section, house
+	})
+	.then(() => res.send({success: true}))
+	.catch(e => {
+		res.status(500).send({success: false, message: "unexpected"})
+		throw e
+	})
+}
+exports.delete = (req, res) => {
+	let { id } = req.params
+	Student.remove({_id: id})
+	.then(() => res.send({success: true}))
+	.catch(e => {
+		res.status(500).send({success: false, message: "unexpected"})
+		throw e
+	})
+}
+exports.resetPin = (req, res) => {
+	let { id } = req.params
+	Student.findByIdAndUpdate(id, {
+		used: false,
+		voted: false
+	})
+	.then(() => res.send({success: true}))
+	.catch(e => {
+		res.status(500).send({success: false, message: "unexpected"})
+		throw e
+	})
+}
 
 exports.generatePinFile = () => {
 	return Student.find(null, null, {
@@ -34,16 +92,20 @@ exports.generatePinFile = () => {
 		fs.writeFileSync(path.resolve(__dirname, '../static/downloads/pins/student.csv'), csvString)
 	})
 }
-
 exports.bulkCreate = (req, res, next) => {
 	const { students } = req.post
+	let usedPins = []
 	Student.remove({}) // remove all existing ones
 	.then(() => Student.collection.insert(
 		students
 		.sort(() => .5 - Math.random())
 		.map((s, i) => {
 			// generate a random pin
-			const pin = i + 1000 + ""
+			let pin = ("0000" + Math.floor(Math.random() * 10000)).substr(-4, 4)
+			while (usedPins.indexOf(pin) != -1) {
+				// get a new pin.
+				pin = ("0000" + Math.floor(Math.random() * 10000)).substr(-4, 4)
+			}
 			return {
 				name: s[0],
 				grade: parseInt(s[1]),

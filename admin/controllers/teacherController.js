@@ -25,13 +25,17 @@ exports.generatePinFile = () => {
 
 exports.bulkCreate = (req, res, next) => {
 	const { teachers } = req.post
+	let usedPins = []
 	Teacher.remove({}) // remove all existing ones
 	.then(() => Teacher.collection.insert(
 		teachers
-		.sort(() => .5 - Math.random())
 		.map((t, i) => {
 			// generate a random pin
-			const pin = i + 1000 + ""
+			let pin = ("0000" + Math.floor(Math.random() * 10000)).substr(-4, 4)
+			while (usedPins.indexOf(pin) != -1) {
+				// get a new pin.
+				pin = ("0000" + Math.floor(Math.random() * 10000)).substr(-4, 4)
+			}
 			return {
 				name: t[0],
 				house: t[1],

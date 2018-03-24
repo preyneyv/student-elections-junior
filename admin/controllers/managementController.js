@@ -24,13 +24,17 @@ exports.generatePinFile = () => {
 
 exports.bulkCreate = (req, res, next) => {
 	const { management } = req.post
+	let usedPins = []
 	Management.remove({}) // remove all existing ones
 	.then(() => Management.collection.insert(
 		management
-		.sort(() => .5 - Math.random())
 		.map((m, i) => {
 			// generate a random pin
-			const pin = i + 1000 + ""
+			let pin = ("0000" + Math.floor(Math.random() * 10000)).substr(-4, 4)
+			while (usedPins.indexOf(pin) != -1) {
+				// get a new pin.
+				pin = ("0000" + Math.floor(Math.random() * 10000)).substr(-4, 4)
+			}
 			return {
 				name: m[0],
 				used: false,
