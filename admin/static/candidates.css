@@ -85,13 +85,15 @@
 	letter-spacing: 2px;
 	opacity: 0.3;
 }
-#create-candidate-modal {
+#create-candidate-modal,
+#edit-candidate-modal {
 	opacity: 0;
 	transition: opacity 300ms;
 	pointer-events: none;
 }
-#create-candidate-modal.show {opacity: 1; pointer-events: all;}
-#modal-background {
+#create-candidate-modal.show,
+#edit-candidate-modal.show {opacity: 1; pointer-events: all;}
+.modal-background {
 	background: rgba(0,0,0,0.7);
 	position: fixed;
 	top: 0;
@@ -100,7 +102,7 @@
 	height: 100vh;
 	z-index: 5;
 }
-#modal-window {
+.modal-window {
 	position: fixed;
 	z-index: 6;
 	top: 50%;
@@ -110,15 +112,15 @@
 	background: white;
 	color: #444;
 }
-#modal-header {
+.modal-header {
 	font-size: 2em;
 	text-transform: uppercase;
 	padding: 16px;
 }
-#modal-content {
+.modal-content {
 	padding: 0 16px;
 }
-#modal-window input {
+.modal-window input {
 	display: block;
 	width: 100%;
 	box-sizing: border-box;
@@ -127,12 +129,12 @@
 	outline: none;
 	font-size: 18px;
 }
-#modal-window input + input {margin-top: 8px;}
-#modal-footer {
+.modal-window input + input {margin-top: 8px;}
+.modal-footer {
 	padding: 16px;
 	text-align: right;
 }
-#modal-footer button {
+.modal-footer button {
 	margin-left: 8px;
 	padding: 8px 16px;
 	outline: none;
@@ -143,10 +145,8 @@
 	cursor: pointer;
 	background: transparent;
 }
-#modal-footer #modal-save-button {
+.modal-footer .primary {
 	background: #FC5C7D;
-	background: -webkit-linear-gradient(to right, #6A82FB, #FC5C7D);
-	background: linear-gradient(to right, #6A82FB, #FC5C7D);
-	background-attachment: fixed;
 	color: white;
+	letter-spacing: 1px;
 }

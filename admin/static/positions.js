@@ -9,9 +9,18 @@ const table = $("#positions-table").DataTable({
 	},
 	columns: [
 		{data: 'position'},
-		{data: 'gradeSpecific'},
-		{data: 'sectionSpecific'},
-		{data: 'houseSpecific'},
+		{
+			data: 'gradeSpecific',
+			defaultContent: '<div style="text-align: center">&mdash;</div>'
+		},
+		{
+			data: 'sectionSpecific',
+			defaultContent: '<div style="text-align: center">&mdash;</div>'
+		},
+		{
+			data: 'houseSpecific',
+			defaultContent: '<div style="text-align: center">&mdash;</div>'
+		},
 		{ // view candidates button
 			mRender: (data, type, row) => `<button class="row-view-candidates" data-id="${row._id}">View ${row.candidates.length}</button>`
 		},

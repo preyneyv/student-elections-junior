@@ -18,6 +18,7 @@ exports.list = (req, res) => {
 				candidate.managementVotes = entry.managementVotes
 				return candidate
 			})
+			if (position.gradeSpecific.length == 0) position.gradeSpecific = null
 			positions.push(position)
 		}))
 

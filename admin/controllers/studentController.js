@@ -2,11 +2,11 @@ const fs = require('fs')
 const path = require('path')
 const Papa = require('papaparse')
 
-const { Candidate, Position, Student } = require("../../database")
+const { Student } = require("../../database")
 
 exports.list = (req, res) => {
-	Candidate.find({})
-	.then(candidates => res.send({success: true, candidates}))
+	Student.find({})
+	.then(students => res.send({success: true, students}))
 }
 exports.create = (req, res) => {}
 exports.update = (req, res) => {}

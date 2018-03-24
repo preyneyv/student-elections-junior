@@ -28,7 +28,28 @@ exports.create = (req, res) => {
 		throw e
 	})
 }
-exports.update = (req, res) => res.send({success: false})
+exports.update = (req, res) => {
+	const { id } = req.params
+	const { name, grade, section, house } = req.post
+	const image = req.files ? req.files.image : null
+
+	let updateObject = {
+		name, grade, section, house
+	}
+	if (image) {
+		const imageName = id + path.extname(image.name)
+		imageObject.$set.image = imageName
+		image.mv(path.resolve(studentElectionsJunior.imagesDir, imageName))
+	}
+
+	Candidate.findByIdAndUpdate(id, updateObject)
+	.then(() => res.send({success: true}))
+	.catch(e => {
+		res.status(500).send({success: false})
+		throw e
+	})
+
+}
 
 exports.delete = (req, res) => {
 	const { id } = req.params
@@ -51,16 +72,18 @@ exports.delete = (req, res) => {
 }
 
 exports.addAbstain = (req, res, next) => {
-	const abstainUser = new Candidate({
-		name: "Abstain",
-		image: "abstain.png"
-	})
-	abstainUser.save()
-	.then(() =>
+	Candidate.remove({name: "Abstain", image: 'abstain.png'})
+	.then(() => 
+		new Candidate({
+			name: "Abstain",
+			image: "abstain.png"
+		}
+	).save())
+	.then((user) =>
 		Position.update({}, {
 			$push: {
 				candidates: {
-					candidateId: abstainUser._id,
+					candidateId: user._id,
 					votes: 0
 				}
 			}

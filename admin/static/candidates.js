@@ -1,93 +1,81 @@
-let candidates
+let candidates = []
 
-$(window).on('load', updateCandidates)
-
-function updateCandidates() {
-	$(".grade, .no-candidates").remove()
-	axios.get("api/candidates/")
-	.then(response => response.data)
-	.then(data => {
-		candidates = data.candidates
-		populateCandidates()
-	})
-}
-
-function populateCandidates() {
-	if (candidates.length == 0) {
-		$("#content")
-		.append(
-			$("<div>")
-			.addClass('no-candidates')
-			.html('No Candidates Found')
-		)
-		.append(
-			$("<div>")
-			.addClass('no-candidates')
-			.html("(>.<')")
-		)
-
-		return
-	}
-	const candidatesByGrade = _.groupBy(candidates, 'grade')
-	Object.keys(candidatesByGrade)
-	.map(a => parseInt(a))
-	.sort((a,b) => a > b)
- 	.forEach(grade => {
-		console.log(grade)
-		const gradeElem = $("<div>")
-		.addClass('grade')
-		.append(
-			$("<div>")
-			.addClass('grade-title')
-			.html(`Grade ${grade}`)
-		)
-		const gradeCandidatesElem = $("<div>")
-		.addClass('grade-candidates')
-		candidatesByGrade[grade].forEach(candidate => {
-			const candidateElem = $("<div>")
-			.addClass('candidate')
-			.attr('data-id', candidate._id)
-			.append(
-				$("<div>")
-				.addClass('candidate-name')
-				.text(candidate.name)
-			)
-			.append(
-				$("<div>")
-				.addClass('candidate-action candidate-delete material-icons')
-				.text('delete')
-			)
-			gradeCandidatesElem.append(candidateElem)
-		})
-		gradeElem.append(gradeCandidatesElem)
-		$("#content").append(gradeElem)
-	})
-
-	// init events
-	$(".grade-title").on('click', function() {
-		const grade = $(this).parent()
-		//grade.siblings().removeClass('show')
-		//grade.siblings().find('.grade-candidates').stop().slideUp(300)
-		grade.toggleClass('show')
-		grade.find('.grade-candidates').stop().slideToggle(300)
-	})
-	$(".candidate-delete").on('click', function() {
-		if (!confirm("Are you sure you want to delete this candidate?")) return;
-		const candidateId = $(this).parents('.candidate').data('id')
-		axios.delete('api/candidates/' + candidateId)
-		.then(response => response.data)
-		.then(data => {
-			if (data.success) {
-				updateCandidates()
-			} else {
-				alert('An unexpected error occured')
+const table = $("#candidates-table").DataTable({
+	autoWidth: false,
+	// paginate: false,
+	ajax: {
+		url: 'api/candidates',
+		dataSrc: (d) => candidates = d.candidates,
+	},
+	columns: [
+		{data: 'name'},
+		{
+			data: 'grade',
+			defaultContent: '<div style="text-align: center">&mdash;</div>'
+		},
+		{
+			data: 'section',
+			defaultContent: '<div style="text-align: center">&mdash;</div>'
+		},
+		{
+			data: 'house',
+			defaultContent: '<div style="text-align: center">&mdash;</div>'
+		},
+		{ // action buttons
+			mRender: function (data, type, row) {
+				if (row.name == "Abstain") {
+					return "<i>No Actions</i>"
+				} else {
+					return `
+						<i class="material-icons row-edit" data-id="${row._id}">edit</i>
+						<i class="material-icons row-delete" data-id="${row._id}">delete</i>
+					`
+				}
 			}
+		},
+	],
+	columnDefs: [
+		{
+			sortable: false,
+			searchable: false,
+			targets: ['nosort']
+		},
+		{
+			targets: -1,
+			className: 'actions'
+		},
+	],
+	drawCallback: function() {
+		console.log("Table drawn!")
+		$("#positions-table .row-view-candidates").on('click', function () {
+			const positionId = $(this).data('id')
+			const position = positions.filter(p => p._id == positionId)[0]
+			console.log(position)
+			viewCandidatesModal.show(position)
 		})
-	})
-}
+		$("#candidates-table .row-delete").on('click', function() {
+			const candidateId = $(this).data('id')
+			const candidate = candidates.filter(c => c._id == candidateId)[0]
+			if (!confirm(`Are you sure you want to delete ${candidate.name}?`)) return;
+			$("#candidates-table").css('pointer-events', 'none')
+			axios.delete('api/candidates/' + candidateId)
+			.then(() => {
+				table.ajax.reload()
+				$("#candidates-table").css('pointer-events', 'all')
+			})
+		})
+		$("#candidates-table .row-edit").on('click', function() {
+			const candidateId = $(this).data('id')
+			const candidate = candidates.filter(c => c._id == candidateId)[0]
+			editCandidateModal.show(candidate)
+		})
+		$("#positions-table td:not()")
+	}
+})
 
-// Modal code
-let modal = new (function() {
+
+// Create modal code
+new (function() {
 	this.show = () => {
 		$("#create-candidate-modal").addClass('show')
 		$('#create-candidate-modal input').val('')
@@ -95,8 +83,7 @@ let modal = new (function() {
 	}
 	this.hide = () => {
 		$("#create-candidate-modal").removeClass('show')
-		updateCandidates()
-		// $('#create-candidate-modal input').val('')
+		table.ajax.reload()
 	}
 	this.submit = () => {
 		const that = this
@@ -109,18 +96,53 @@ let modal = new (function() {
 		let data = new FormData()
 		data.append('name', name)
 		data.append('grade', grade)
-		data.append('section', section)
+		if (section) data.append('section', section);
 		data.append('house', house)
 		data.append('image', image)
 
 		axios.put('api/candidates/', data)
+		.then(() => that.hide())
+	}
+	$("#new-candidate-cancel-button").on('click', this.hide)
+	$("#new-candidate-save-button").on('click', this.submit)
+	$("#create-candidate-button").on('click', this.show)
+})
+
+
+let editCandidateModal = new (function() {
+	this.show = (candidate) => {
+		this.candidate = candidate
+		$("#edit-candidate-name").focus().val(candidate.name)
+		$("#edit-candidate-grade").val(candidate.grade)
+		$("#edit-candidate-section").val(candidate.section)
+		$("#edit-candidate-house").val(candidate.house)
+		$("#edit-candidate-modal").addClass('show')
+	}
+	this.hide = () => {
+		$("#edit-candidate-modal").removeClass('show')
+		table.ajax.reload()
+	}
+	this.submit = () => {
+		const that = this
+		let name = $("#edit-candidate-name").val() || null
+		let grade = $("#edit-candidate-grade").val() || null
+		let section = $("#edit-candidate-section").val() || null
+		let house = $("#edit-candidate-house").val() || null
+		let image = $("#edit-candidate-image")[0].files[0]
+
+		let data = new FormData()
+		if (name) data.append('name', name);
+		if (grade) data.append('grade', grade);
+		if (section) data.append('section', section);
+		if (house) data.append('house', house);
+
+		if (image) data.append('image', image);
+		axios.patch('api/candidates/' + that.candidate._id, data)
 		.then(response => response.data)
 		.then(data => {
-			console.log(data)
-			that.show()
+			that.hide()
 		})
 	}
-	$("#modal-cancel-button").on('click', this.hide)
-	$("#modal-save-button").on('click', this.submit)
+	$("#edit-candidate-cancel-button").on('click', this.hide)
+	$("#edit-candidate-save-button").on('click', this.submit)
 })
-$("#create-candidate-button").on('click', modal.show)

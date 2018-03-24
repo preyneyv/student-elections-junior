@@ -32,13 +32,25 @@
 			<div class="spacer"></div>
 			<button id="create-candidate-button">Create<br>New</button>
 		</div>
+		<div>
+			<table id="candidates-table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Grade</th>
+						<th>Section</th>
+						<th>House</th>
+						<th class="nosort">Actions</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
 	</div>
 	<div id="create-candidate-modal">
-		<div id="modal-background"></div>
-
-		<div id="modal-window">
-			<div id="modal-header">Create Candidate</div>
-			<div id="modal-content">
+		<div class="modal-background"></div>
+		<div class="modal-window">
+			<div class="modal-header">Create Candidate</div>
+			<div class="modal-content">
 				<input required id="new-candidate-name" type="text" placeholder="Name">
 				<input required id="new-candidate-grade" type="number" min="1" max="12" placeholder="Grade">
 				<input required
@@ -57,7 +69,6 @@
 					<option>Beta</option>
 					<option>Gamma</option>
 					<option>Delta</option>
-					<option>N/A</option>
 				</datalist>
 				<datalist id="house-datalist">
 					<option>Poseidon</option>
@@ -66,9 +77,36 @@
 					<option>Caesar</option>
 				</datalist>
 			</div>
-			<div id="modal-footer">
-				<button id="modal-cancel-button">Cancel</button>
-				<button id="modal-save-button">Save</button>
+			<div class="modal-footer">
+				<button id="new-candidate-cancel-button">Cancel</button>
+				<button class="primary" id="new-candidate-save-button">Save</button>
+			</div>	
+		</div>
+	</div>
+
+	<div id="edit-candidate-modal">
+		<div class="modal-background"></div>
+
+		<div class="modal-window">
+			<div class="modal-header">Edit Candidate</div>
+			<div class="modal-content">
+				<input id="edit-candidate-name" type="text" placeholder="Name">
+				<input id="edit-candidate-grade" type="number" min="1" max="12" placeholder="Grade">
+				<input
+				list="section-datalist"
+				id="edit-candidate-section"
+				type="text"
+				placeholder="Section">
+				<input
+				list="house-datalist"
+				id="edit-candidate-house"
+				type="text"
+				placeholder="House">
+				<input id="edit-candidate-image" type="file">
+			</div>
+			<div class="modal-footer">
+				<button id="edit-candidate-cancel-button">Cancel</button>
+				<button class="primary" id="edit-candidate-save-button">Save</button>
 			</div>	
 		</div>
 	</div>
