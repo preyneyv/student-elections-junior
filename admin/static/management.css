@@ -1,0 +1,17 @@
+#new-management-modal,
+#edit-management-modal {
+	opacity: 0;
+	transition: opacity 300ms;
+	pointer-events: none;
+}
+#new-management-modal.show,
+#edit-management-modal.show {opacity: 1; pointer-events: all;}
+
+.voting-status {
+	text-align: center;
+}
+
+.row-reset-pin.disabled {
+	opacity: 0.3;
+	pointer-events: none;
+}

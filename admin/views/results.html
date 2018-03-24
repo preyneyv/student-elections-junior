@@ -1,48 +1,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>RESULTS PAGE</title>
+	<title>Result | Student Elections</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js" integrity="sha256-+JMHsXRyeTsws/tzbIh5YHQxRdKCuNjmvNcTFtY6DLc=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js" integrity="sha256-YFhaeQSVBgAFNN5z4I9YRB2jCuqc2nvypz0Q2eQzcx8=" crossorigin="anonymous"></script>
 
-
-	<style type="text/css">
-		#math {
-			font-size: 20px;
-		}
-		body {
-			margin: 16px;
-			font-size: 24px;
-			font-family: sans-serif;
-		}
-		table {
-			margin-top: 16px;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="theme.css">
+	<link rel="stylesheet" type="text/css" href="results.css">
 </head>
 <body>
-	<script type="text/x-handlebars-template" id="table-template">
-		<table class="results-table" border="1" cellpadding="8">
+	<div id="sidebar">
+		<div id="sidebar-title">Student Elections</div>
+		<a href="./candidates">Candidates</a>
+		<a href="./positions">Positions</a>
+		<a href="./students">Students</a>
+		<a href="./teachers">Teachers</a>
+		<a href="./management">Management</a>
+		<a class="current" href="./results">Results</a>
+		<a href="./import">Import/Export</a>
+		<div id="sidebar-spacer"></div>
+		<a href="../">Back</a>
+	</div>
+	<div id="content">
+		<div id="title-row">
+			<div id="page-title">Results</div>
+			<div class="spacer"></div>
+			<button id="create-management-button">Download</button>
+		</div>
+		<div id="search">
+			<input autofocus
+			list="search-autocomplete"
+			type="text"
+			id="searchbox" 
+			placeholder="Search">
+		</div>
+		<datalist id="search-autocomplete">
+			<option>TESt</option>
+			<option>TESt2</option>
+			<option>TESt3</option>
+			<option>TESt4</option>
+		</datalist>
+	</div>
+</body>
+<script type="text/x-handlebars-template" id="table-template">
+	<div>
+		<h2>{{position}}</h2>
+		<table class="results-table">
 			<thead>
 				<tr>
-					<th colspan="{{colspan}}">{{position}}</th>
-				</tr>
-				<tr>
-					<th></th>
+					<th>Name</th>
 					{{#each candidates}}
 					<th>{{name}}</th>
 					{{/each}}
 				</tr>
+			</thead>
+			<tbody>
 				<tr>
-					<th></th>
+					<th>Image</th>
 					{{#each candidates}}
 					<th><img src="images/{{image}}" width="140"></th>
 					{{/each}}
 				</tr>
-			</thead>
-			<tbody>
 				<tr>
 					<th>Student Votes</th>
 					{{#each candidates}}
@@ -69,45 +89,62 @@
 				</tr>
 			</tbody>
 		</table>
-	</script>
-	Total is calculated as follows for each position:<br>
-	<pre id="math">Vote Ratio = Total Student Votes / (Total Management Votes + Total Teacher Votes)
-Total = Student Votes + (Management Votes + Teacher Votes) × Vote Ratio</pre>
-
-	<br>
-	<select id="role-selection">
-		<option selected disabled>Select a Role</option>
-	</select>
-</body>
+	</div>
+</script>
 <script>
 	const tableTemplate = Handlebars.compile($("#table-template").html())
-	let results = []
+	let results = [],
+	totalStudentVotes,
+	totalFacultyVotes,
+	facultyToStudentRatio,
+	filter = ""
 	axios.get('api/results')
 	.then(response => response.data)
 	.then(data => results = _.sortBy(data.positions, 'position'))
 	.then(() => {
-		const options = results.map(result => $("<option>").html(result.position))
-		$("#role-selection").append(options)
+		totalStudentVotes = results.reduce((count,position) => {
+			count = position.candidates.reduce((count, candidate) => {
+				return count + candidate.votes
+			}, 0)
+			return count
+		}, 0)
+		totalFacultyVotes = results.reduce((count,position) => {
+			count = position.candidates.reduce((count, candidate) => {
+				return count + candidate.teacherVotes + candidate.managementVotes
+			}, 0)
+			return count
+		}, 0)
+		facultyToStudentRatio = totalStudentVotes/totalFacultyVotes
 	})
+	.then(createTables)
 
-	$("#role-selection").on('change', () => {
-		const role = $("#role-selection").val()
-		const position = results.filter(result => result.position == role)[0]
-		position.colspan = position.candidates.length + 1
+	function createTables() {
+		let filterRegex
+		if (filter) {
+			filterRegex = new RegExp(filter, 'i')
+		} else {
+			filterRegex = new RegExp('.*')
+		}
+		$(".results-table").parent().remove()
+		results
+		.filter(position => filterRegex.test(position.position))
+		.forEach(position => {
+			position.colspan = position.candidates.length + 1
 
-		const totalStudentVotes = position.candidates.reduce((a, b) => a + b.votes, 0)
-		const totalTeacherManagementVotes = position.candidates.reduce((a, b) => a + b.teacherVotes + b.managementVotes, 0)
-		const teacherToStudent = totalStudentVotes / totalTeacherManagementVotes
-		console.log(totalStudentVotes, totalTeacherManagementVotes, teacherToStudent)
-		position.candidates.forEach(c => 
-			c.total = c.votes+(c.teacherVotes+c.managementVotes)*teacherToStudent
-		)
-		position.candidates = _.orderBy(position.candidates, 'votes', 'desc')
+			position.candidates.forEach(c => 
+				c.total = c.votes
+				+(c.teacherVotes+c.managementVotes)
+				*facultyToStudentRatio
+			)
+			position.candidates = _.orderBy(position.candidates, 'votes', 'desc')
 
-		const table = $(tableTemplate(position))
-		$('.results-table').remove()
-		$('body').append(table)
+			const table = $(tableTemplate(position))
+			$('#content').append(table)
+		})
+	}
+	$("#searchbox").on('keyup', () => {
+		filter = $("#searchbox").val()
+		createTables()
 	})
-
 </script>
 </html>

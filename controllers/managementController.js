@@ -27,7 +27,7 @@ exports.fetch = (req, res) => {
 		pin,
 		used: false
 	}, {
-		// used: true
+		used: true
 	}, { 
 		new: true
 	})
@@ -69,7 +69,7 @@ exports.submit = (req, res) => {
 		pin,
 		voted: false,
 	}, {
-		// voted: true,
+		voted: true,
 	}, { 
 		new: true
 	})

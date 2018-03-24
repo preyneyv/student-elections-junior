@@ -63,6 +63,15 @@ module.exports = (app) => {
 	app.route('/api/teachers/:id/reset')
 	.post(teacherController.resetPin)
 
+	app.route('/api/management/')
+	.get(managementController.list)
+	.put(managementController.create)
+	app.route('/api/management/:id')
+	.patch(managementController.update)
+	.delete(managementController.delete)
+	app.route('/api/management/:id/reset')
+	.post(managementController.resetPin)
+
 	app.route('/api/results')
 	.get(positionController.results)
 

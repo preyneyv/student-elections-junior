@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Teachers | Student Elections</title>
+	<title>Management | Student Elections</title>
 
 	<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900|Material+Icons" rel="stylesheet">
 	
@@ -11,8 +11,8 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js" integrity="sha256-YFhaeQSVBgAFNN5z4I9YRB2jCuqc2nvypz0Q2eQzcx8=" crossorigin="anonymous"></script>
 
-	<script defer src="teachers.js"></script>
-	<link rel="stylesheet" type="text/css" href="teachers.css">
+	<script defer src="management.js"></script>
+	<link rel="stylesheet" type="text/css" href="management.css">
 	<link rel="stylesheet" type="text/css" href="theme.css">
 </head>
 <body>
@@ -21,8 +21,8 @@
 		<a href="./candidates">Candidates</a>
 		<a href="./positions">Positions</a>
 		<a href="./students">Students</a>
-		<a class="current" href="./teachers">Teachers</a>
-		<a href="./management">Management</a>
+		<a href="./teachers">Teachers</a>
+		<a class="current" href="./management">Management</a>
 		<a href="./results">Results</a>
 		<a href="./import">Import/Export</a>
 		<div id="sidebar-spacer"></div>
@@ -30,17 +30,16 @@
 	</div>
 	<div id="content">
 		<div id="title-row">
-			<div id="page-title">Teachers</div>
+			<div id="page-title">Management</div>
 			<div class="spacer"></div>
-			<button id="create-teacher-button">Create<br>New</button>
+			<button id="create-management-button">Create<br>New</button>
 		</div>
 		<div>
-			<table id="teachers-table">
+			<table id="management-table">
 				<thead>
 					<tr>
 						<th>Name</th>
 						<th>Pin</th>
-						<th>House</th>
 						<th>Used</th>
 						<th>Voted</th>
 						<th class="nosort">Actions</th>
@@ -49,47 +48,31 @@
 			</table>
 		</div>
 	</div>
-	<datalist id="house-datalist">
-		<option>Poseidon</option>
-		<option>Phoenix</option>
-		<option>Hercules</option>
-		<option>Caesar</option>
-	</datalist>
-	<div id="new-teacher-modal" style="display: none;">
+	<div id="new-management-modal" style="display: none;">
 		<div class="modal-background"></div>
 		<div class="modal-window">
-			<div class="modal-header">Create Teacher</div>
+			<div class="modal-header">Create management</div>
 			<div class="modal-content">
-				<input required id="new-teacher-name" type="text" placeholder="Name">
-				<input required
-				list="house-datalist"
-				id="new-teacher-house"
-				type="text"
-				placeholder="House">
+				<input required id="new-management-name" type="text" placeholder="Name">
 			</div>
 			<div class="modal-footer">
-				<button id="new-teacher-cancel-button">Cancel</button>
-				<button class="primary" id="new-teacher-save-button">Save</button>
+				<button id="new-management-cancel-button">Cancel</button>
+				<button class="primary" id="new-management-save-button">Save</button>
 			</div>	
 		</div>
 	</div>
 
-	<div id="edit-teacher-modal" style="display: none;">
+	<div id="edit-management-modal" style="display: none;">
 		<div class="modal-background"></div>
 
 		<div class="modal-window">
-			<div class="modal-header">Edit Teacher</div>
+			<div class="modal-header">Edit management</div>
 			<div class="modal-content">
-				<input id="edit-teacher-name" type="text" placeholder="Name">
-				<input
-				list="house-datalist"
-				id="edit-teacher-house"
-				type="text"
-				placeholder="House">
+				<input id="edit-management-name" type="text" placeholder="Name">
 			</div>
 			<div class="modal-footer">
-				<button id="edit-teacher-cancel-button">Cancel</button>
-				<button class="primary" id="edit-teacher-save-button">Save</button>
+				<button id="edit-management-cancel-button">Cancel</button>
+				<button class="primary" id="edit-management-save-button">Save</button>
 			</div>	
 		</div>
 	</div>
