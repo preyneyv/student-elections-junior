@@ -3,10 +3,13 @@ const app = express()
 const adminApp = require('./admin')
 
 function init() {
-	const expressHandlebars = require("express-handlebars")
-	app.engine('hbs', expressHandlebars())
+	const hbs = require('hbs')
+	
 	app.set('view engine', 'hbs')
+	app.engine('hbs', hbs.__express)
 	app.set('views', __dirname + "/client/views")
+
+	hbs.registerPartials(__dirname + "/client/views/partials")
 
 	studentElectionsJunior = require("./config.json")
 	require("./routes/clientRoutes")(app)

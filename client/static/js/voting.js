@@ -1,10 +1,16 @@
 "use strict";
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var touchScreen = false;
 
 var numberRegex = /[0-9]/;
 var pageTemplate = Handlebars.compile($("#voting-page-template").html());
 var confirmTemplate = Handlebars.compile($("#confirm-votes-template").html());
+
+$(window).one('touchstart', () => {
+	touchScreen = true;
+	$('body').addClass('touch')
+})
 
 $("#pin-input").on('keypress', function (e) {
 	var code = e.which || e.code
@@ -70,8 +76,6 @@ function createViews(_positions) {
 
 	currentPage = 0;
 	$(window).on('resize', function () {
-		//var scrollTop = $(".voting-page").eq(currentPage).position().top;
-		//$('#container').stop().scrollTop(scrollTop);
 		scrollWindowToCurrent()
 	});
 	setTimeout(function () {
@@ -81,13 +85,19 @@ function createViews(_positions) {
 
 function scrollWindowToCurrent() {
 	var cb = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {};
-	//var scrollTop = $(window).height() * (currentPage + 1)
-	
 	var scrollTop = $(".voting-page").eq(currentPage).position().top;
-	console.log(scrollTop, currentPage)
-	//$('#container').stop().animate({ scrollTop: "+=" + scrollTop }, 500, cb);
-	$("#container").scrollTop($("#container").scrollTop() + scrollTop)
-	cb()
+	
+	if (touchScreen) {
+		// use cheaper animation
+		$("#container").addClass('hide')
+		setTimeout(() => {
+			$("#container").scrollTop($("#container").scrollTop() + scrollTop)
+			$("#container").removeClass('hide')
+			setTimeout(() => cb(), 250)
+		}, 250)
+	} else {
+		$('#container').stop().animate({ scrollTop: "+=" + scrollTop }, 500, cb);
+	}
 }
 
 function clickCandidate() {
@@ -128,6 +138,7 @@ function showConfirmPage() {
 	var page = $(confirmTemplate({ votes: confirmVotes, currentPage: currentPage }));
 	page.find('.vote').on('click', rewindToVote);
 	page.find('.voting-page-submit').on('click', submitVotes);
+	if (touchScreen) page.find('.help-text').html('(tap to change)');
 	$('#container').append(page);
 }
 
