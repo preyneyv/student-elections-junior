@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<title>Teachers Voting | Student Elections</title>
+	{{> clientImports}}
+	<script src="../js/voting.js" defer></script>
+	<link rel="stylesheet" type="text/css" href="../css/theme.css">
+	<link rel="stylesheet" type="text/css" href="../css/voting.css">
+</head>
+<body>
+	<script id="voting-page-template" type="text/x-handlebars-template">
+		<div class="voting-page" data-page-index="\{{pageIndex}}" data-position-id="\{{_id}}">
+			<div class="voting-page-title bg-text">
+				<i class="material-icons">person</i>
+				\{{position}}
+			</div>
+			<div class="voting-page-candidates">
+			\{{#each candidates}}
+				<div class="candidate" data-candidate-id="\{{_id}}">
+					<div class="candidate-name">\{{name}}</div>
+					<div class="candidate-image"
+					style="background-image: url(../images/\{{image}})"></div>
+				</div>
+			\{{/each}}
+			</div>
+		</div>
+	</script>
+	<script type="text/x-handlebars-template" id="confirm-votes-template">
+		<div class="confirm-votes voting-page" data-page-index="\{{currentPage}}">
+			<div class="voting-page-title bg-text">
+				<i class="material-icons">done_all</i>
+				Confirm Votes
+				<span class="help-text confirm-votes-help-text">(click to change)</span>
+			</div>
+			<div class="voting-page-votes">
+			\{{#each votes}}
+				<div class="vote" data-position-id="\{{_id}}">
+					<div class="position">\{{position}}</div>
+					<div class="candidate">\{{candidate.name}}</div>
+				</div>
+			\{{/each}}
+			</div>
+			<div class="spacer"></div>
+			<button class="voting-page-submit">Submit Votes</button>
+		</div>
+	</script>
+	<div id="container">
+		<div id="links">
+			<a href="../">Students</a>
+			<a href="../management">Management</a>
+		</div>
+		<div id="full-center">
+			<img src="../logo.png" id="logo" width="120">
+			<h2>Student Council Elections</h2>
+			<h1>Teachers</h1>
+			<div>Enter your pin</div>
+			<input
+			placeholder="1234"
+			type="text"
+			autofocus
+			autocomplete="off"
+			spellcheck="off"
+			pattern="[0-9]{4}"
+			required
+			id="pin-input">
+		</div>
+	</div>
+</body>
+</html>

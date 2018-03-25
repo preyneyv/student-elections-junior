@@ -19,14 +19,24 @@ exports.index = (req, res) => {
 			case 0:
 				res.render('registrationsOpen')
 			case 1:
-				break
+				res.render('registrationsClosed')
 			case 2:
 				break
 			case 3:
-				res.render('voting')
+				res.render('studentVoting')
 			case 4:
 				break
+		}
+	})
+}
 
+exports.checkVoting = (req, res, next) => {
+	getState()
+	.then(state => {
+		if (state.stage === 3) {
+			next()
+		} else {
+			res.sendStatus(404)
 		}
 	})
 }

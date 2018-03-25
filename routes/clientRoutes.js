@@ -10,6 +10,14 @@ module.exports = app => {
 	app.use(express.static(path.resolve(__dirname, "../client/static")))
 
 	app.get('/', clientController.index)
+	app.get('/teachers/', 
+		clientController.checkVoting,
+		(req, res) => res.render('teachersVoting')
+	)
+	app.get('/management/', 
+		clientController.checkVoting,
+		(req, res) => res.render('managementVoting')
+	)
 
 	app.use('/images', express.static(studentElectionsJunior.imagesDir))
 
