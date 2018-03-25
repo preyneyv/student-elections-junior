@@ -92,10 +92,16 @@ const managementSchema = new Schema({
 	}
 })
 
+const settingsSchema = new Schema({
+	key: String,
+	value: Schema.Types.Mixed,
+})
+
 module.exports = {
 	Candidate: mongoose.model('Candidate', candidateSchema),
 	Position: mongoose.model('Position', positionSchema),
 	Student: mongoose.model('Student', studentSchema),
 	Management: mongoose.model('Management', managementSchema),
-	Teacher: mongoose.model('Teacher', teacherSchema)
+	Teacher: mongoose.model('Teacher', teacherSchema),
+	Settings: mongoose.model('Settings', settingsSchema),
 }

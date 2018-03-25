@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home | Student Elections</title>
+
+	{{> imports}}
+
+	<script defer src="home.js"></script>
+	<link rel="stylesheet" type="text/css" href="home.css">
+</head>
+<body>
+	{{> sidebar}}
+	<div id="content">
+		<div id="title-row">
+			<div id="page-title">Home</div>
+			<div class="spacer"></div>
+			<button id="create-management-button">Create<br>New</button>
+		</div>
+		<div>
+			<h2>App Stage</h2>
+			<table class="disabled" id="app-stage-table">
+				<tr>
+					<td colspan="5">
+						<input class="slider" id="app-stage" type="range" value="500" min="0" max="1000">
+					</td>
+				</tr>
+				<tr>
+					<td>Registrations</td>
+					<td>Interviews</td>
+					<td>Speeches</td>
+					<td>Voting</td>
+					<td>Results</td>
+				</tr>
+				<tr>
+					<td>
+						Students can nominate themselves for the available positions.
+					</td>
+					<td>
+						Nominations are now closed. Interviews take place and the management decides who the final nominees are for each position.
+					</td>
+					<td>
+						Selected nominees deliver their speeches. Students can view details about each nominee.
+					</td>
+					<td>
+						Voting takes place. Students, teachers, and management select their preferred representative for each position that they can vote for.
+					</td>
+					<td>
+						Votings are now closed. Results are visible to everyone.
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

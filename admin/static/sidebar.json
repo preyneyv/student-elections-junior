@@ -1,0 +1,49 @@
+{
+	"fixed": [
+		{
+			"url": "/",
+			"title": "Home"
+		},
+		{
+			"url": "/candidates",
+			"title": "Candidates"
+		},
+		{
+			"url": "/positions",
+			"title": "Positions"
+		},
+		{
+			"url": "/students",
+			"title": "Students"
+		},
+		{
+			"url": "/teachers",
+			"title": "Teachers"
+		},
+		{
+			"url": "/management",
+			"title": "Management"
+		},
+		{
+			"url": "/import",
+			"title": "Import/Export"
+		}
+	],
+	"dynamic": [
+		[],
+		[
+			{
+				"url": "/accept-reject",
+				"title": "Accept/Reject"
+			}
+		],
+		[],
+		[],
+		[
+			{
+				"url": "/results",
+				"title": "Results"
+			}
+		]
+	]
+}

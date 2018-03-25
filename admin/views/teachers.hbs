@@ -3,31 +3,13 @@
 <head>
 	<title>Teachers | Student Elections</title>
 
-	<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900|Material+Icons" rel="stylesheet">
-	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js" integrity="sha256-YFhaeQSVBgAFNN5z4I9YRB2jCuqc2nvypz0Q2eQzcx8=" crossorigin="anonymous"></script>
+	{{> imports}}
 
 	<script defer src="teachers.js"></script>
 	<link rel="stylesheet" type="text/css" href="teachers.css">
-	<link rel="stylesheet" type="text/css" href="theme.css">
 </head>
 <body>
-	<div id="sidebar">
-		<div id="sidebar-title">Student Elections</div>
-		<a href="./candidates">Candidates</a>
-		<a href="./positions">Positions</a>
-		<a href="./students">Students</a>
-		<a class="current" href="./teachers">Teachers</a>
-		<a href="./management">Management</a>
-		<a href="./results">Results</a>
-		<a href="./import">Import/Export</a>
-		<div id="sidebar-spacer"></div>
-		<a href="../">Back</a>
-	</div>
+	{{> sidebar}}
 	<div id="content">
 		<div id="title-row">
 			<div id="page-title">Teachers</div>

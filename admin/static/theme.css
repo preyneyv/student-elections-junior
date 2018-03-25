@@ -17,6 +17,7 @@ body {
 	display: flex;
 	position: fixed;
 	left: 0;
+	overflow: auto;
 	top: 0;
 	width: 300px;
 	flex-direction: column;
@@ -39,6 +40,8 @@ body {
 	letter-spacing: 2px;
 	text-decoration: none;
 	color: white;
+	border-top: 1px solid transparent;
+	transition: border-color 300ms;
 }
 #sidebar a.current {
 	background: rgba(255,255,255,0.2);
@@ -46,6 +49,9 @@ body {
 }
 #sidebar a:hover {
 	background: rgba(255,255,255,0.1);
+}
+#sidebar a.stage-based + a:not(.stage-based) {
+	border-top: 1px solid rgba(255,255,255,0.5);
 }
 #sidebar-spacer {
 	flex: 1 1 auto;

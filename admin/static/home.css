@@ -1,0 +1,71 @@
+h2 {
+	margin: 0;
+	text-transform: uppercase;
+	letter-spacing: 4px;
+	font-weight: 300;
+	margin-bottom: 8px;
+}
+#app-stage-table {
+	width: 100%;
+	table-layout: fixed;
+	transition: opacity 300ms, filter 300ms;
+}
+#app-stage-table td {
+	vertical-align: top;
+	padding: 4px;
+	color: rgba(0,0,0,0.2);
+	transition: color 500ms;
+}
+#app-stage-table tr:nth-child(2) td {
+	text-align: center;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+#app-stage-table.disabled {
+	pointer-events: none;
+	opacity: 0.5;
+}
+#app-stage-table tr:nth-child(2) td + td {
+	border-left: 1px dotted rgba(0,0,0,0.3);
+}
+#app-stage-table tr td.current {
+	font-size: 1em;
+	color: rgba(0,0,0,0.5);
+	cursor: default;
+	pointer-events: none;
+}
+#app-stage {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;   
+    background: rgba(0,0,0,0.1);
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    pointer-events: none;
+}
+
+#app-stage::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20%;
+    height: 16px;
+    border-radius: 3px; 
+    background: #FC5C7D;
+	background: -webkit-linear-gradient(to right, #6A82FB, #FC5C7D);
+	background: linear-gradient(to right, #6A82FB, #FC5C7D);
+	background-attachment: fixed;
+	cursor: move;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+#app-stage::-moz-slider-thumb {
+	width: 24px;
+    height: 24px;
+    border-radius: 50%; 
+    background: #FC5C7D;
+	background: linear-gradient(to right, #6A82FB, #FC5C7D);
+	background-attachment: fixed;
+	cursor: move;
+}

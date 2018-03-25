@@ -5,6 +5,7 @@ const positionController = require('./controllers/positionController')
 const studentController = require('./controllers/studentController')
 const teacherController = require('./controllers/teacherController')
 const managementController = require('./controllers/managementController')
+const appController = require('./controllers/appController')
 
 module.exports = (app) => {
 	app.use('/downloads/pins/*', (req, res, next) => {
@@ -22,14 +23,14 @@ module.exports = (app) => {
 	})
 	app.use(express.static(__dirname + "/static"))
 
-	app.get('/', (req, res) => res.redirect('./candidates'))
-	app.get('/candidates', (req, res) => res.file('views/candidates.html'))
-	app.get('/positions', (req, res) => res.file('views/positions.html'))
-	app.get('/students', (req, res) => res.file('views/students.html'))
-	app.get('/teachers', (req, res) => res.file('views/teachers.html'))
-	app.get('/management', (req, res) => res.file('views/management.html'))
-	app.get('/results', (req, res) => res.file('views/results.html'))
-	app.get('/import', (req, res) => res.file('views/import.html'))
+	app.get('/', (req, res) => res.view('home'))
+	app.get('/candidates', (req, res) => res.view('candidates'))
+	app.get('/positions', (req, res) => res.view('positions'))
+	app.get('/students', (req, res) => res.view('students'))
+	app.get('/teachers', (req, res) => res.view('teachers'))
+	app.get('/management', (req, res) => res.view('management'))
+	app.get('/results', (req, res) => res.view('results'))
+	app.get('/import', (req, res) => res.view('import'))
 
 	app.route('/api/candidates/')
 	.get(candidateController.list)
@@ -78,6 +79,7 @@ module.exports = (app) => {
 
 	app.route('/api/results')
 	.get(positionController.results)
+	app.use('/images', express.static(studentElectionsJunior.imagesDir))
 
 	app.post('/api/bulkCreate', 
 		positionController.bulkCreate,
@@ -88,5 +90,6 @@ module.exports = (app) => {
 		(req, res) => res.send({success: true})
 	)
 
-	app.use('/images', express.static(studentElectionsJunior.imagesDir))
+	app.get('/api/state', appController.getState)
+	app.post('/api/state', appController.updateState)
 }

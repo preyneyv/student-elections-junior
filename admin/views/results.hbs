@@ -2,27 +2,13 @@
 <html>
 <head>
 	<title>Result | Student Elections</title>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js" integrity="sha256-mpnrJ5DpEZZkwkE1ZgkEQQJW/46CSEh/STrZKOB/qoM=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js" integrity="sha256-+JMHsXRyeTsws/tzbIh5YHQxRdKCuNjmvNcTFtY6DLc=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.5/lodash.min.js" integrity="sha256-YFhaeQSVBgAFNN5z4I9YRB2jCuqc2nvypz0Q2eQzcx8=" crossorigin="anonymous"></script>
+	
+	{{> imports}}
 
-	<link rel="stylesheet" type="text/css" href="theme.css">
 	<link rel="stylesheet" type="text/css" href="results.css">
 </head>
 <body>
-	<div id="sidebar">
-		<div id="sidebar-title">Student Elections</div>
-		<a href="./candidates">Candidates</a>
-		<a href="./positions">Positions</a>
-		<a href="./students">Students</a>
-		<a href="./teachers">Teachers</a>
-		<a href="./management">Management</a>
-		<a class="current" href="./results">Results</a>
-		<a href="./import">Import/Export</a>
-		<div id="sidebar-spacer"></div>
-		<a href="../">Back</a>
-	</div>
+	{{> sidebar}}
 	<div id="content">
 		<div id="title-row">
 			<div id="page-title">Results</div>
@@ -46,46 +32,46 @@
 </body>
 <script type="text/x-handlebars-template" id="table-template">
 	<div>
-		<h2>{{position}}</h2>
+		<h2>\{{position}}</h2>
 		<table class="results-table">
 			<thead>
 				<tr>
 					<th>Name</th>
-					{{#each candidates}}
-					<th>{{name}}</th>
-					{{/each}}
+					\{{#each candidates}}
+					<th>\{{name}}</th>
+					\{{/each}}
 				</tr>
 			</thead>
 			<tbody>
 				<tr>
 					<th>Image</th>
-					{{#each candidates}}
-					<th><img src="images/{{image}}" width="140"></th>
-					{{/each}}
+					\{{#each candidates}}
+					<th><img src="images/\{{image}}" width="140"></th>
+					\{{/each}}
 				</tr>
 				<tr>
 					<th>Student Votes</th>
-					{{#each candidates}}
-					<td>{{votes}}</td>
-					{{/each}}
+					\{{#each candidates}}
+					<td>\{{votes}}</td>
+					\{{/each}}
 				</tr>
 				<tr>
 					<th>Teacher Votes</th>
-					{{#each candidates}}
-					<td>{{teacherVotes}}</td>
-					{{/each}}
+					\{{#each candidates}}
+					<td>\{{teacherVotes}}</td>
+					\{{/each}}
 				</tr>
 				<tr>
 					<th>Management Votes</th>
-					{{#each candidates}}
-					<td>{{managementVotes}}</td>
-					{{/each}}
+					\{{#each candidates}}
+					<td>\{{managementVotes}}</td>
+					\{{/each}}
 				</tr>
 				<tr>
 					<th>Total</th>
-					{{#each candidates}}
-					<td>{{total}}</td>
-					{{/each}}
+					\{{#each candidates}}
+					<td>\{{total}}</td>
+					\{{/each}}
 				</tr>
 			</tbody>
 		</table>

@@ -1,0 +1,19 @@
+<div id="sidebar">
+	<div id="sidebar-title">Student Elections</div>
+	{{#each sidebar.dynamic}}
+	{{#if current}}
+	<a class="current stage-based" href=".{{url}}">{{title}}</a>
+	{{else}}
+	<a class="stage-based" href=".{{url}}">{{title}}</a>
+	{{/if}}
+	{{/each}}
+	{{#each sidebar.fixed}}
+	{{#if current}}
+	<a class="current" href=".{{url}}">{{title}}</a>
+	{{else}}
+	<a href=".{{url}}">{{title}}</a>
+	{{/if}}
+	{{/each}}
+	<div id="sidebar-spacer"></div>
+	<a href="../">Back</a>
+</div>
