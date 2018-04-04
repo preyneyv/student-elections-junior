@@ -21,15 +21,52 @@ module.exports = app => {
 
 	app.use('/images', express.static(studentElectionsJunior.imagesDir))
 
-	app.post('/api/check', studentController.check)
-	app.get('/api/fetch', studentController.fetch)
-	app.post('/api/submit', studentController.submit)
+	app.post(
+		'/api/check',
+		clientController.checkVoting,
+		studentController.check
+	)
+	app.get(
+		'/api/fetch',
+		clientController.checkVoting,
+		studentController.fetch
+	)
+	app.post(
+		'/api/submit',
+		clientController.checkVoting,
+		studentController.submit
+	)
 
-	app.post('/teachers/api/check', teachersController.check)
-	app.get('/teachers/api/fetch', teachersController.fetch)
-	app.post('/teachers/api/submit', teachersController.submit)
+	app.post(
+		'/teachers/api/check',
+		clientController.checkVoting,
+		teachersController.check
+	)
+	app.get(
+		'/teachers/api/fetch',
+		clientController.checkVoting,
+		teachersController.fetch
+	)
+	app.post(
+		'/teachers/api/submit',
+		clientController.checkVoting,
+		teachersController.submit
+	)
 
-	app.post('/management/api/check', managementController.check)
-	app.get('/management/api/fetch', managementController.fetch)
-	app.post('/management/api/submit', managementController.submit)
+	app.post(
+		'/management/api/check',
+		clientController.checkVoting,
+		managementController.check
+	)
+	app.get(
+		'/management/api/fetch',
+		clientController.checkVoting,
+		managementController.fetch
+	)
+	app.post(
+		'/management/api/submit',
+		clientController.checkVoting,
+		managementController.submit
+	)
+
 }

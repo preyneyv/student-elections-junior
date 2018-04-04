@@ -46,7 +46,12 @@ const candidateSchema = new Schema({
 		type: String,
 		default: ""
 	},
-	image: String
+	image: String,
+	interviewed: {
+		type: Boolean,
+		default: false
+	},
+	selected: Boolean
 })
 
 const studentSchema = new Schema({

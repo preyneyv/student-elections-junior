@@ -31,6 +31,7 @@ module.exports = (app) => {
 	app.get('/management', (req, res) => res.view('management'))
 	app.get('/results', (req, res) => res.view('results'))
 	app.get('/import', (req, res) => res.view('import'))
+	app.get('/accept-reject', (req, res) => res.view('acceptReject'))
 
 	app.route('/api/candidates/')
 	.get(candidateController.list)
@@ -86,7 +87,7 @@ module.exports = (app) => {
 		studentController.bulkCreate,
 		teacherController.bulkCreate,
 		managementController.bulkCreate,
-		candidateController.addAbstain,
+		candidateController.removeAllAndAddAbstain,
 		(req, res) => res.send({success: true})
 	)
 

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Accept/Reject | Student Elections</title>
+	{{> imports}}
+
+	<script src="accept-reject.js" defer></script>
+	<link rel="stylesheet" type="text/css" href="accept-reject.css">
+</head>
+<body>
+	{{> sidebar}}
+	<script type="text/x-handlebars-template" id="candidate-template">
+		<div class="candidate-card">
+			<table class="candidate-table">
+				<tr>
+					<td rowspan="2" class="candidate-image">
+						<div style="background-image: url(images/\{{image}});" 
+						></div>
+					</td>
+					<td class="candidate-name">
+						<div>\{{name}}</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="candidate-details">
+						<div>Grade \{{grade}} \{{section}} ~ \{{house}}</div>
+					</td>
+				</tr>
+			</table>
+			<div class="candidate-actions">
+				{{#each positions}}
+				<div>
+					<input type="checkbox" id="{{_id}}">
+					<label for="{{_id}}" data-position="{{position}}"></label>
+				</div>
+				{{/each}}
+			</div>
+			<div class="candidate-submit-row">
+				<button class="candidate-submit">Submit</button>
+			</div>
+		</div>
+	</script>
+	<div id="content">
+	</div>
+</body>
+</html>

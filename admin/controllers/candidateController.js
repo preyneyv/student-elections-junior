@@ -72,8 +72,8 @@ exports.delete = (req, res) => {
 	})
 }
 
-exports.addAbstain = (req, res, next) => {
-	Candidate.remove({name: "Abstain", image: 'abstain.png'})
+exports.removeAllAndAddAbstain = (req, res, next) => {
+	Candidate.remove({})
 	.then(() => 
 		new Candidate({
 			name: "Abstain",
@@ -96,4 +96,11 @@ exports.addAbstain = (req, res, next) => {
 		res.status(500).send({success: false})
 		throw e
 	})
+}
+
+exports.getAcceptRejectCandidate = (req, res) => {
+	Candidate.findOne({
+		interviewed: false
+	})
+	.then(candidate => res.send({success: true, candidate}))
 }

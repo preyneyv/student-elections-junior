@@ -1,10 +1,11 @@
 $("#upload-button").on('click', () => {
+	if (!confirm("Are you sure you want to delete all existing entries and create new ones? (This cannot be undone.)")) return;
 	console.log("UPLOADING")
 	const positionsFile = $("#positions-file")[0].files[0]
 	const studentsFile = $("#students-file")[0].files[0]
 	const teachersFile = $("#teachers-file")[0].files[0]
 	const managementFile = $("#management-file")[0].files[0]
-	if (!positionsFile || !studentsFile || !teachersFile || !managementFile) return alert("Please upload all the files at once.");
+	if (!positionsFile || !studentsFile || !teachersFile || !managementFile) return alert("Please ensure you have selected all the files.");
 	let positions, students, teachers, management
 	function checkToUpload() {
 		if (!positions || !students || !teachers || !management) return;

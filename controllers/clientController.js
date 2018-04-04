@@ -21,7 +21,7 @@ exports.index = (req, res) => {
 			case 1:
 				res.render('registrationsClosed')
 			case 2:
-				break
+				res.render('candidateListing')
 			case 3:
 				res.render('studentVoting')
 			case 4:

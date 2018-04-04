@@ -1,0 +1,112 @@
+.candidate-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+.candidate-image {
+	width: 150px;
+	padding: 8px;
+	border: 2px dotted #aaa;
+	box-sizing: border-box;
+}
+.candidate-image div {
+	/*border-radius: 5%;*/
+	width: 150px;
+	height: 150px;
+	background-position: center;
+	background-size: cover;
+	box-shadow: 0px 3px 6px rgba(0,0,0,0.15);
+}
+.candidate-name {
+	text-transform: uppercase;
+	font-size: 3em;
+	font-weight: 700;
+	letter-spacing: 2px;
+	text-align: center;
+}
+.candidate-name div {
+	border-bottom: 1px solid rgba(0,0,0,0.15);
+	display: inline-block;
+	padding-bottom: 16px;
+}
+.candidate-details {
+	text-align: center;
+	vertical-align: top;
+	font-size: 1.5em;
+	font-weight: 300;
+	font-style: italic;
+}
+.candidate-actions {
+	display: flex;
+	margin-top: 16px;
+	flex-wrap: wrap;
+}
+.candidate-actions > div {
+	flex: 1 0 50%;
+}
+.candidate-actions input {
+	display: none;
+}
+.candidate-actions input + label {
+	display: block;
+	text-align: center;
+	padding: 32px 0;
+	color: white;
+	position: relative;
+	text-transform: uppercase;
+	font-size: 2em;
+	font-weight: 300;
+	letter-spacing: 2px;
+	transition: box-shadow 300ms;
+	cursor: pointer;
+	margin-right: 16px;
+	background: #bbb;
+	margin-bottom: 16px;
+
+	-webkit-user-select: none;
+	user-select: none;
+}
+.candidate-actions div:nth-child(2n) input + label,
+.candidate-actions div:last-child input + label {
+	margin-right: 0;
+}
+.candidate-actions input + label::before {
+	background: -webkit-linear-gradient(to right, #6A82FB, #FC5C7D);
+	background: linear-gradient(to right, #6A82FB, #FC5C7D);
+	background-attachment: fixed;
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	opacity: 0;
+	transition: opacity 300ms;
+	box-shadow: 0px 3px 6px rgba(0,0,0,0.15);
+}
+.candidate-actions input:checked + label::before {
+	opacity: 1;
+}
+.candidate-actions input + label::after {
+	content: attr(data-position);
+	position: relative;
+	z-index: 4;
+}
+.candidate-submit-row {
+	text-align: right;
+}
+.candidate-submit {
+	background: white;
+	border: 0;
+	font: inherit;
+	cursor: pointer;
+	text-transform: uppercase;
+	background: -webkit-linear-gradient(to right, #6A82FB, #FC5C7D);
+	background: linear-gradient(to right, #6A82FB, #FC5C7D);
+	background-attachment: fixed;
+	color: white;
+	font-size: 1.2em;
+	letter-spacing: 1px;
+	box-shadow: 0px 3px 6px rgba(0,0,0,0.15);
+	padding: 10px 16px;
+}
