@@ -69,11 +69,11 @@
 				</tr>
 			</tbody>
 		</table>
-	</script>
-	<br>
+	</script><!-- 
 	<select id="role-selection">
 		<option selected disabled>Select a Role</option>
-	</select>
+	</select> -->
+	
 </body>
 <script>
 	const tableTemplate = Handlebars.compile($("#table-template").html())
@@ -82,28 +82,43 @@
 	.then(response => response.data)
 	.then(data => results = _.sortBy(data.positions, 'position'))
 	.then(() => {
-		const options = results.map(result => $("<option>").html(result.position))
-		$("#role-selection").append(options)
+		// const options = results.map(result => $("<option>").html(result.position))
+		// $("#role-selection").append(options)
+		results.forEach(position => {
+			position.colspan = position.candidates.length + 1
+			const totalStudentVotes = position.candidates.reduce((a, b) => a + b.votes, 0)
+			const totalTeacherManagementVotes = position.candidates.reduce((a, b) => a + b.teacherVotes + b.managementVotes, 0)
+			const teacherToStudent = totalStudentVotes / totalTeacherManagementVotes
+			console.log(totalStudentVotes, totalTeacherManagementVotes, teacherToStudent)
+			position.candidates.forEach(c => 
+				c.total = c.votes+(c.teacherVotes+c.managementVotes)*teacherToStudent
+			)
+			position.candidates = _.orderBy(position.candidates, 'votes', 'desc')
+
+			const table = $(tableTemplate(position))
+			// $('.results-table').remove()
+			$('body').append(table)
+		})
 	})
 
-	$("#role-selection").on('change', () => {
-		const role = $("#role-selection").val()
-		const position = results.filter(result => result.position == role)[0]
-		position.colspan = position.candidates.length + 1
+	// $("#role-selection").on('change', () => {
+	// 	const role = $("#role-selection").val()
+	// 	const position = results.filter(result => result.position == role)[0]
+	// 	position.colspan = position.candidates.length + 1
 
-		const totalStudentVotes = position.candidates.reduce((a, b) => a + b.votes, 0)
-		const totalTeacherManagementVotes = position.candidates.reduce((a, b) => a + b.teacherVotes + b.managementVotes, 0)
-		const teacherToStudent = totalStudentVotes / totalTeacherManagementVotes
-		console.log(totalStudentVotes, totalTeacherManagementVotes, teacherToStudent)
-		position.candidates.forEach(c => 
-			c.total = c.votes+(c.teacherVotes+c.managementVotes)*teacherToStudent
-		)
-		position.candidates = _.orderBy(position.candidates, 'votes', 'desc')
+	// 	const totalStudentVotes = position.candidates.reduce((a, b) => a + b.votes, 0)
+	// 	const totalTeacherManagementVotes = position.candidates.reduce((a, b) => a + b.teacherVotes + b.managementVotes, 0)
+	// 	const teacherToStudent = totalStudentVotes / totalTeacherManagementVotes
+	// 	console.log(totalStudentVotes, totalTeacherManagementVotes, teacherToStudent)
+	// 	position.candidates.forEach(c => 
+	// 		c.total = c.votes+(c.teacherVotes+c.managementVotes)*teacherToStudent
+	// 	)
+	// 	position.candidates = _.orderBy(position.candidates, 'votes', 'desc')
 
-		const table = $(tableTemplate(position))
-		$('.results-table').remove()
-		$('body').append(table)
-	})
+	// 	const table = $(tableTemplate(position))
+	// 	// $('.results-table').remove()
+	// 	$('body').append(table)
+	// })
 
 </script>
 </html>
