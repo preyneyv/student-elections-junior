@@ -106,6 +106,7 @@ exports.bulkCreate = (req, res, next) => {
 				// get a new pin.
 				pin = ("0000" + Math.floor(Math.random() * 10000)).substr(-4, 4)
 			}
+			usedPins.push(pin)
 			return {
 				name: s[0],
 				grade: parseInt(s[1]),
